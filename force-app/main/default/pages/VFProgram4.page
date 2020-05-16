@@ -1,0 +1,23 @@
+<!--
+Create a page with a custom mandatory field (Contact) which automatically fills the another text field (Contact's account name) 
+-->
+<apex:page controller="ConAccIdFillController">
+    <apex:slds >
+    <apex:pageBlock title="Search Account Id of Contact">
+        <center>
+        <apex:pageBlockSection collapsible="false"> 
+            <apex:form >
+               LastName&nbsp;&nbsp; <apex:inputText required="true" value="{!conName}">
+                </apex:inputText><br/><br/>
+                <apex:commandButton value="Search" action="{!searchAccount}" reRender="AccIdSection" styleClass=".slds-button_success"/>
+            </apex:form>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection collapsible="false" id="AccIdSection" rendered="true">
+            <apex:form >
+              AccountId &nbsp;&nbsp;<apex:inputText value="{!setRes}" disabled="true"/> 
+            </apex:form>
+        </apex:pageBlockSection>
+            </center>
+    </apex:pageBlock>
+    </apex:slds>
+</apex:page>

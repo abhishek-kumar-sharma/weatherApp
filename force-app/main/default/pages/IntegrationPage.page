@@ -1,0 +1,20 @@
+<!--
+ - Created by ABHISHEK on 17-07-2019.
+ -->
+<apex:page id="IntegrationPage" standardController="Opportunity" standardStylesheets="true" lightningStylesheets="true">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:IntegrationObjectApp", function () {
+            $Lightning.createComponent("c:IntegrationObjectComponent", {
+                        "recordId" : "{!$CurrentPage.parameters.id}"
+                    },
+                    "mainDiv", function (cmp) {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>

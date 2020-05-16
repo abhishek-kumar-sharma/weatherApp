@@ -1,0 +1,22 @@
+<apex:page id="TaskFirstVFPage" showHeader="false" sideBar="false" lightningStylesheets="true" >
+    <apex:includeLightning />
+
+    <script>
+        $Lightning.use("c:TaskFirstApp", function () {
+            $Lightning.createComponent(
+                    "c:TaskFirst",
+                    {recordId  : "{!$CurrentPage.parameters.id}" },
+                    "mainDiv",
+                    function (cmp) {
+                    }
+            );
+        });
+    </script>
+
+    <apex:slds >
+    <div id="mainDiv">
+
+    </div>
+
+    </apex:slds>
+</apex:page>

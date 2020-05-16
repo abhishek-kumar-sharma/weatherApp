@@ -1,0 +1,54 @@
+<aura:component >
+	<lightning:layout multipleRows="false">
+            <lightning:layoutItem size="2" >
+                <div class="custom-box">Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.Determines how to spread the layout items v
+                    ertically. The alignment options are start, center, end, and stretch.</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2" >
+                <div class="custom-box">Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2">
+                <div class="custom-box">Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2">
+                <div class="custom-box">Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2" >
+                <div class="custom-box">Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2" >
+                <div class="custom-box">Determines how to spread the layout items vertically. The alignment options are start, center, end, and stretch.</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="2">
+                <div class="custom-box">7</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">8</div>
+            </lightning:layoutItem>
+        <lightning:layoutItem>
+                <div class="custom-box">1</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">2</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">3</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">4</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">5</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">6</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">7</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem >
+                <div class="custom-box">8</div>
+            </lightning:layoutItem>
+        </lightning:layout>
+</aura:component>

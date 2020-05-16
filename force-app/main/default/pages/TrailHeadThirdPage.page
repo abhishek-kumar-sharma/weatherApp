@@ -1,0 +1,19 @@
+<apex:page standardController="Opportunity" >
+    <apex:pageBlock title="Output Field Example">
+        <apex:pageBlockSection >
+            <apex:outputField value="{!Opportunity.Name}" />
+            <apex:outputField value="{!Opportunity.AccountId}"/>
+            <apex:outputField value="{!Opportunity.Amount}"/>
+            <apex:outputField value="{!Opportunity.CloseDate}"/>
+            <apex:outputField value="{!Opportunity.StageName}" />
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
+    <apex:pageBlock title="OLI List">
+        <apex:pageBlockTable value="{!Opportunity.OpportunityLineItems}" var="oppList">
+            <apex:column value="{!oppList.OpportunityId}" /> 
+            <apex:column value="{!oppList.Product2Id}" />
+            <apex:column value="{!oppList.TotalPrice}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

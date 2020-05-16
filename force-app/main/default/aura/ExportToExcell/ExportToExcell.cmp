@@ -1,0 +1,89 @@
+<aura:component description="ExportToExcell" controller="ExportToExcellHandler">
+
+
+
+    <!--jquery version 3.3.1 -->
+        <ltng:require scripts="{!join(',',
+            $Resource.NewJquery + '/newTest/jquery.js',
+            $Resource.NewJquery + '/newTest/jquery.tabletoCSV.js')}"
+                  afterScriptsLoaded="{!c.scriptsLoaded}"/>
+
+
+    <!-- Attribute to store Object Name -->
+    <aura:attribute name="objectName" type="String"/>
+    <!-- Attribute to store response -->
+    <aura:attribute name="responseData" type="Object[]"/>
+
+
+    <!-- Header Section -->
+    <div id="header">
+        <div class="slds-page-header slds-m-around--large">
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title slds-truncate slds-align--absolute-center"
+                    title="Export To Excel ">
+                    Export To Excel</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input section -->
+
+    <div class="slds-grid slds-gutters slds-m-around--large">
+        <div class="slds-col slds-small-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12 slds-wrap">
+            <div id="inputBox" class="">
+                <lightning:input tabindex="1" required="true" label="Object Name " value="{!v.objectName}"/>
+            </div>
+            <div class="slds-col slds-align--absolute-center slds-small-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12 slds-wrap">
+                <div class="slds-m-around--medium">
+                    <lightning:button tabindex="3" label="Reset" onclick="{!c.Reset }" variant="destructive"/>
+                    <lightning:button tabindex="2" label="Get Data" onclick="{!c.getAllFields }" variant="brand"/>
+                    <button class="{!v.responseData.length > 0 ? 'slds-button slds-button_success':'slds-hide'}" id="export" data-export="export"><b>Export</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="outputPanel" class="slds-hide">
+        <div class="slds-grid slds-gutters slds-m-around--large">
+            <div class="slds-col slds-small-size--1-of-1 slds-medium-size--6-of-6 slds-large-size--12-of-12 slds-wrap">
+
+                <table class="slds-table slds-table--bordered slds-max-medium-table_stacked-horizontal" id="ToCSV">
+                    <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Field Label"
+                                 style="font-family: 'Courier 10 Pitch'; font-size: large"><strong>Field Label</strong>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Field API Name"
+                                 style="font-family: 'Courier 10 Pitch'; font-size: large"><strong>Field API Name</strong></div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Field Data Type"
+                                 style="font-family: 'Courier 10 Pitch'; font-size: large"><strong>Field Data Type</strong></div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <aura:iteration items="{!v.responseData}" var="data">
+                        <tr class="slds-hint-parent">
+
+                            <td data-label="Field Label">
+                                <div class="slds-truncate" title="Field Label">{!data.Label}</div>
+                            </td>
+                            <td data-label="Field API Name">
+                                <div class="slds-truncate" title="Field API Name">{!data.APIName}</div>
+                            </td>
+                            <td data-label="Field Data Type">
+                                <div class="slds-truncate" title="Field Data Type">{!data.dataType}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

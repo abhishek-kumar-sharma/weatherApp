@@ -1,0 +1,48 @@
+<aura:component description="CalenderDemoCmp" controller="CalenderDemoControllerApex">
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+
+    <div id="main-container">
+        <div class="slds-page-header slds-m-around--small">
+            <p class="slds-text-align--center">DATE RANGE CALENDER</p>
+        </div>
+
+
+        <lightning:listView aura:id="listViewAccounts"
+                            objectApiName="Account"
+                            listName="AllAccounts"
+                            rows="5"
+                            showActionBar="false"
+                            enableInlineEdit="true"
+                            showRowLevelActions="false"
+        />
+        <div>
+            <lightning:layout multipleRows="true" class="slds-m-around--small slds-theme slds-theme--shade"
+                              horizontalAlign="space">
+                <lightning:layoutItem padding="around-small">
+                    <div>
+                        <lightning:input type="date" required="false" label="Start Date :" name=""
+                                         value="{!v.startDate}" placeholder="Enter start date "/>
+                    </div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                    <div>
+                        <lightning:input type="date" required="false" label="End Date :" name="" value="{!v.endDate}"
+                                         placeholder="Enter start date "/>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout multipleRows="false" horizontalAlign="center">
+                <lightning:layoutItem padding="" class="slds-align_absolute-center">
+                    <lightning:button label="Get Calender" iconName="utility:event" variant="brand" iconPosition="left"
+                                      title="Get full calender " onclick="{!c.getCalenderController}"/>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <lightning:layout multipleRows="false" horizontalAlign="spread">
+
+            </lightning:layout>
+        </div>
+
+    </div>
+
+</aura:component>

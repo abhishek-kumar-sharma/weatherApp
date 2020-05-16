@@ -1,0 +1,21 @@
+<!--
+ - Created by Abhishek Kumar Sharma on 6/20/2018.
+ -->
+
+<aura:component description="ratingStars">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Attribute to store rating -->
+    <aura:attribute name="rating" type="Integer" access="global"
+                    description="Rating attribute to handle and store the user rating"/>
+
+
+    <h2>Star Rating</h2>
+    <span class="fa fa-star" accesskey="1" onClick="alert('1');"></span>
+    <span class="fa fa-star" accesskey="2" onClick="alert('2');"></span>
+    <span class="fa fa-star" accesskey="3" onClick="alert('3');"></span>
+    <span class="fa fa-star" accesskey="4" onClick="alert('4');"></span>
+    <span class="fa fa-star" accesskey="5" onClick="alert('5');"></span>
+
+</aura:component>

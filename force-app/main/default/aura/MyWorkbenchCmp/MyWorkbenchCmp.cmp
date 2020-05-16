@@ -1,0 +1,98 @@
+<!--
+ - Created by abhishek on 8/3/18.
+ -->
+<aura:component description="MyWorkbenchCmp" access="global" controller="MyWorkbench_ApexController">
+
+    <ltng:require scripts="{!join(',',
+            $Resource.Aura_All_In_One + '/Aura_All_In_One/js/jquery.min.js'
+
+            )}"/>
+
+
+    <!-- *********** Attribute Section ************-->
+    <!-- Attribute to store Objects -->
+    <aura:attribute name="Objects" type="List"/>
+    <!-- Attribute to store name of selected object -->
+    <aura:attribute name="selectedObject" type="String"/>
+    <!-- Attribute to store Fields name dual list box-->
+    <aura:attribute name="selectedObjectField" type="String" default=""/>
+    <!-- Attribute to show/hide dual list box -->
+    <aura:attribute name="showDualListBox" type="Boolean" default="false"/>
+    <!-- Attribute to store Fields name -->
+    <aura:attribute name="selectedFields" type="String" default=""/>
+    <!-- Attribute to store result table header -->
+    <aura:attribute name="tableHeader" type="List"/>
+    <!-- Attribute to store result table data -->
+    <aura:attribute name="tableData" type="Object"/>
+    <!-- Attribute to store query -->
+    <aura:attribute name="query" type="String"/>
+    <!-- Attribute to show/hide query box -->
+    <aura:attribute name="showQueryBox" type="Boolean" default="false"/>
+
+
+    <!-- Handler section -->
+
+    <!-- Handler to load all object -->
+    <aura:handler name="init" value="{!this}" action="{!c.loadObjectController}"/>
+
+
+    <!-- ************* UI SECTION ************-->
+
+    <div class="slds-grid slds-gutters_medium"><!--Main Div for structure -->
+<!--
+
+        <div style=" height: inherit">&lt;!&ndash; branding and logo &ndash;&gt;
+            <h2 class="slds-text-align&#45;&#45;center slds-text-heading&#45;&#45;label slds-text-heading&#45;&#45;large"> Work Bench
+                Replica </h2>
+        </div>
+-->
+
+
+        <div class="slds-col"><!-- select object  box -->
+            <div class="slds-text-heading--label">
+                <lightning:select label="Select Object here ... "
+                                  onchange="{!c.loadFieldsController}"
+                                  name="Select Object here ..."
+                                  tabindex="1"
+                                  value="{!v.selectedObject}"
+                                  messageWhenValueMissing="Did you forgot to select Object ??"
+                                  readonly="true" required="true">
+                    <option> ---NONE---</option>
+                    <aura:iteration items="{!v.Objects}" var="objName">
+                        <Option value="{!objName}">{!objName}</Option>
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+
+            <div>
+                <lightning:dualListbox label="Select Field here ... "
+                                       name="Select Field here ..."
+                                       sourceLabel="Available Fields ..."
+                                       selectedLabel="Selected Fields ..."
+                                       value="{!v.selectedFields}"
+                                       options="{!v.selectedObjectField}"
+                                       onchange="{!c.loadDataController}"
+                />
+            </div>
+        </div>
+
+        <div class="slds-col"><!-- Query box -->
+            <aura:if isTrue="{!v.showQueryBox}">
+                query section
+                <lightning:formattedText title="Your Query" value="{!v.query}"/>
+            </aura:if>
+
+        </div>
+
+       <!-- <div style="width: 100%"> &lt;!&ndash; result area &ndash;&gt;
+            <lightning:datatable keyField="Id"
+                                 columns="{!v.tableHeader}"
+                                 data="{!v.tableData}"
+                                 hideCheckboxColumn="false"
+
+            />
+
+        </div>-->
+
+    </div>
+</aura:component>

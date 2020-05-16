@@ -1,0 +1,13 @@
+.THIS {
+}
+
+.THIS .backgroundColorCornflowerBlue{
+    background-color: #e7f6f7;
+}
+.THIS .backgroundColorWhite{
+    background-color: white;
+}
+.THIS ::-webkit-input-placeholder { /* WebKit browsers */
+    color: black;
+    opacity: 0.5 !important;
+}

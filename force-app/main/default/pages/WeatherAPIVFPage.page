@@ -1,0 +1,21 @@
+<apex:page id="WeatherAPIVFPage" sideBar="false" showHeader="false" standardStylesheets="false"
+           lightningStylesheets="true">
+
+    <apex:includeLightning />
+    <script>
+
+        $Lightning.use("c:WeatherAPIApp", function () {
+            $Lightning.createComponent("c:WeatherAPICmp", {}, "mainDiv", function (cmp) {
+
+            });
+        });
+
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+
+    </apex:slds>
+
+</apex:page>

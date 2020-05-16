@@ -1,0 +1,34 @@
+<!--
+ - Created by ABHISHEK on 11/21/2018.
+ -->
+
+<aura:component description="TraningCmpParent">
+    <aura:attribute name="parentValue" type="String" default="Parent value 1111111"/>
+    <aura:attribute name="child1Value" type="String"  default="Parent value 2222222222222" />
+    <aura:attribute name="child2Value" type="String"  default="Parent value 333333333333"/>
+    <aura:attribute name="loadchild" type="Boolean"  default="false"/>
+    <center><h1>Parent Component</h1></center>
+    Parent Value : {!v.parentValue}<br />
+    Child1 Value : {!v.child1Value}<br />
+    Child2 Value : {!v.child2Value}<br />'
+    <lightning:button label="{!v.loadchild == true ? 'change Value true':'change Value false'}" onclick="{!c.changeValueController}" />
+    -----------------------------------------------------
+    <c:Traning1Child parentValue="{!v.parentValue}" child1Value="{!v.child1Value}" child2Value="{!v.child2Value}"/>
+    <br />
+    <br />
+    <aura:if isTrue="{!v.loadchild}">
+    <c:Traning2child parentValue="{#v.parentValue}" child1Value="{#v.child1Value}" child2Value="{#v.child2Value}" />
+    </aura:if>
+    <br />
+    {!$Browser.isAndroid} <br />
+    {!$Browser.isIOS} <br />
+    {!$Browser.isWindowsPhone} <br />
+    {!$Browser.formFactor} <br />
+
+    <br />
+    <div id="{!globalId+'mydiv'}">
+        hello div
+    </div>
+    <lightning:input label="{!$Label.c.Test_Label_Name}" type="number" />
+
+</aura:component>

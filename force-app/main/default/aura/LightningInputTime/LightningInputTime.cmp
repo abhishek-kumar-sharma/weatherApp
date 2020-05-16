@@ -1,0 +1,62 @@
+<aura:component description="LightningInputTime" controller="LightningInputTypeController"
+                implements="flexipage:availableForAllPageTypes">
+
+    <aura:attribute name="dataLink" type="Hotel__c" default="{'sobjectType':'Hotel__c'}"/>
+
+    <div id="main-container">
+        <lightning:layout multipleRows="false" horizontalAlign="space">
+            <lightning:layoutItem padding="around-small" size="12" largeDeviceSize="12" mediumDeviceSize="12"
+                                  smallDeviceSize="12">
+                <div class="slds-page-header slds-text-align--center" style="background-color: #dfdfe0;">
+                    <b>CHECK IN/OUT REGISTER</b>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout multipleRows="true" horizontalAlign="space">
+            <lightning:layoutItem padding="around-small" size="12" largeDeviceSize="8" mediumDeviceSize="6"
+                                  smallDeviceSize="1">
+                <div>
+                    <lightning:input aura:id="field" name="" label="HOTEL NAME" value="{!v.dataLink.Name}" required="true" messageWhenValueMissing="Hotel Name is Required ..."
+                                     type="text"/>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="12" largeDeviceSize="8" mediumDeviceSize="6"
+                                  smallDeviceSize="1">
+                <div>
+                    <lightning:input aura:id="field" name="" label="CHECK IN DATE"
+                                     value="{!v.dataLink.ECSV__Check_In_Date__c}" type="date"/>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="12" largeDeviceSize="8" mediumDeviceSize="6"
+                                  smallDeviceSize="1">
+                <div>
+                    <lightning:input name="" label="CHECK IN TIME"
+                                     value="{!v.dataLink.ECSV__Check_In__c}" type="time"/>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="12" largeDeviceSize="8" mediumDeviceSize="6"
+                                  smallDeviceSize="1">
+                <div>
+                    <lightning:input name="" label="CHECK OUT DATE"
+                                     value="{!v.dataLink.ECSV__Check_Out_Date__c}" type="date"/>
+                </div>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem padding="around-small" size="12" largeDeviceSize="8" mediumDeviceSize="6"
+                                  smallDeviceSize="1">
+                <div>
+                    <lightning:input name="" label="CHECK OUT TIME"
+                                     value="{!v.dataLink.ECSV__Check_Out__c}" type="time"/>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" class="slds-align--absolute-center" size="12"
+                                  largeDeviceSize="8" mediumDeviceSize="4" smallDeviceSize="1">
+                <div>
+                    <lightning:button label="Save" variant="brand" name="save" iconPosition="left"
+                                      iconName="utility:save" onclick="{!c.saveRecord}"/>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+
+</aura:component>

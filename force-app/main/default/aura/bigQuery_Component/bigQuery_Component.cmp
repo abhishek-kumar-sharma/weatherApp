@@ -1,0 +1,7 @@
+<!--
+ - Created by ABHISHEK on 13-06-2019.
+ -->
+
+<aura:component description="bigQuery_Component">
+    welcome sir
+</aura:component>

@@ -1,0 +1,40 @@
+<!---
+Create a page that displays confirmation message and the Accounts Name
+(Eg: Do you really want to insert the new record with Name : test ) and asks for confirmation before saving it.
+-->
+<apex:page controller="CreateAccountController">
+   
+    <script>
+    function callMethod()
+    {
+        var text = document.getElementById('name').value;
+        var res = window.confirm('Are you sure to insert Account '+text);
+        var ins = 0;
+        if(res)
+        {
+            ins =1;
+        }
+    }
+    </script>
+    
+    <apex:slds >
+        <apex:form id="reCons" rendered="true">
+            <apex:pageBlock title="Account Creation">
+                <apex:pageBlockButtons >
+                    <apex:commandButton action="{!save}"  value="Save" onclick="callMethod();"/> 
+                    <apex:commandButton action="{!cancel}" value="Cancel" reRender="reCons" />
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection collapsible="false">
+                    <apex:inputField value="{!acc.Name}"  id="name"/> 
+                    <apex:inputField value="{!acc.AnnualRevenue}"/>
+                    <apex:inputField value="{!acc.Phone}"/>
+                    <apex:inputField value="{!acc.Website}"/>
+                    <apex:inputField value="{!acc.Fax}"/>
+                    <apex:inputField value="{!acc.NumberOfEmployees}"/>
+                    <apex:inputField value="{!acc.Site}"/>
+                    <apex:inputField value="{!acc.Industry}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:slds>
+</apex:page>

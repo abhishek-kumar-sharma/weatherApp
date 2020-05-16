@@ -1,0 +1,22 @@
+<!--
+ - Created by ABHISHEK on 03-04-2019.
+ -->
+
+<apex:page id="D3Page">
+    <script>
+        $Lightning.use("c:AgainVFForLightningApplication", function () {
+            $Lightning.createComponent(
+                    "c:D3Component",
+                    {},
+                    "myDiv",
+                    function (cmp) {
+                    }
+            );
+        });
+    </script>
+
+    <apex:includeLightning />
+    <div id="myDiv">
+
+    </div>
+</apex:page>

@@ -1,0 +1,46 @@
+<!--
+ - Created by ABHISHEK on 23-07-2019.
+ -->
+
+<aura:component description="statusUpdateCmp" access="global">
+    <!-- Attribute section for storing the login related information -->
+    <aura:attribute name="username" type="String" access="private"/>
+    <aura:attribute name="password" type="String" access="private"/>
+    <aura:attribute name="logInErrorMessage" type="String" access="private"/>
+    <aura:attribute name="isLoggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="isShowLoginError" type="Boolean" default="false"/>
+
+    <div id="container">
+        <!-- Login section UI start here -->
+        <div id="loginDiv" class="{!v.isLoggedIn ? 'slds-hide':'slds-show backgroundAnimator backgroundAnimator-img'}">
+            <div class="setColorAndShadow">
+                <lightning:layout multipleRows="true" class="parentContainer">
+                    <lightning:layoutItem size="12" largeDeviceSize="12" smallDeviceSize="12" mediumDeviceSize="12"
+                                          flexibility="auto">
+                        <div class="{!v.isShowLoginError ? 'slds-has-error ':'slds-hide'}">
+                            <span>{!v.logInErrorMessage}</span>
+                        </div>
+                        <lightning:input label="Username" type="email" class="OverrideSldsInput"
+                                         placeholder="Please enter user name here ..."
+                                         autocomplete="on" value="{!v.username}"
+                                         messageWhenValueMissing="Please enter user name to login "/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" largeDeviceSize="12" smallDeviceSize="12" mediumDeviceSize="12"
+                                          flexibility="auto" class="slds-m-top--small">
+                        <lightning:input label="Password" type="password" class="OverrideSldsInput" autocomplete="off"
+                                         value="{!v.password}" placeholder="Please enter password to login "
+                                         messageWhenValueMissing="Please enter password"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="12" largeDeviceSize="12" smallDeviceSize="12" mediumDeviceSize="12"
+                                          flexibility="auto" class="slds-m-top--small">
+                        <lightning:button title="login" label="Login"
+                                          class="btnPaddingOverride"
+                                          onclick="{!c.checkLoginDetails}" variant="brand"/>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+        </div>
+    </div>
+
+
+</aura:component>

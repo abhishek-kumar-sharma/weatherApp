@@ -1,0 +1,14 @@
+<aura:component access="global" implements="force:hasRecordId" controller="TaskBComponentHandler" >
+    
+    <aura:attribute name="loginCon" type="Contact" default="{'sobjectType' : 'Contact'}" />
+    <fieldSet class="slds-input">
+        <h2><legend>Login Information</legend></h2>
+        <lightning:input aura:id="Email" value="{!v.loginCon.Email}" type="email" label="Email" required="true" />
+        <lightning:input aura:id="Password" value="{!v.loginCon.unknown_custom_field}" type="password" label="Password" required="true"/>
+        <br/><lightning:Button aura:id="lgnButton" onclick="{!c.loginHandler}" label="Login !"/>
+        <br/>
+        <pre>
+        
+        </pre>
+    </fieldSet>
+</aura:component>

@@ -1,0 +1,23 @@
+<!-- [A] Create a "register page" with the following fields.
+1) First Name,Last Name,Email,Password,Street,City,Postal Code,
+State
+BUTTON:   Register
+Save all the records into the SALESFORCE CONTACT object.
+Show a Popup message [SLDS MODEL] that "You are registered successfully"-->
+
+<aura:component access="global" implements="force:hasRecordId" controller="TaskAlightning">
+    <aura:attribute name="newContact" type="Contact" default="{'sobjectType' : 'Contact'}" />
+    <fieldSet class="slds-input">
+        <h2><legend>Contact Information</legend></h2>
+        <lightning:input aura:id="fName" value="{!v.newContact.FirstName}" type="text" label="First Name" placeholder="Enter contact first name" required="false" />
+        <lightning:input aura:id="lName" value="{!v.newContact.LastName}"  type="text" label="Last Name" placeholder="Enter Contact Last Name" required="true" minlength="3" messageWhenBadInput="Not a valid Last Name" />
+        <lightning:input aura:id="email" value="{!v.newContact.Email}"  type="email" label="Email " placeholder="Enter Contact Email Id" messageWhenBadInput="Enter a valid email Address"/>
+        <lightning:input aura:id="password" value="{!v.newContact.unknown_custom_field}" type="password" label="Password" placeholder="Enter Contact Password" minlength="6"/>
+        <lightning:input aura:id="street" value="{!v.newContact.MailingStreet}"  label="Street" placeholder="Enter Street" />
+        <lightning:input aura:id="city" value="{!v.newContact.MailingCity}"  type="text" label="City" placeholder="Enter City"/>
+        <lightning:input aura:id="postalCode" value="{!v.newContact.MailingPostalCode}"  type="text" label="Postal Code" placeholder="Enter Postal Code" minlength="6" maxlength="6"/>
+        <lightning:input aura:id="MailingState" value="{!v.newContact.MailingState}"  type="text" label="State Name" placeholder="Enter State " />
+        <br/><lightning:Button aura:id="submit" label="Register" onclick="{!c.registrationHandler}" /><br/>
+        
+    </fieldSet>
+</aura:component>

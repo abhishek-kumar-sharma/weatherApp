@@ -1,0 +1,45 @@
+<!--
+ - Created by ABHISHEK on 28-02-2019.
+ -->
+
+<apex:page id="Login_Page" label="Login Page" standardStylesheets="true" lightningStylesheets="true" title="Login"
+           standardController="Student__c" extensions="studentCtrlExtension" sideBar="false" showHeader="false"
+           showChat="false" applyHtmlTag="false" applyBodyTag="false">
+
+    <center>
+        <apex:form >
+            <div id="main-container" style="margin-top: 10px;">
+                <apex:message />
+                <div>
+                    <label for="username">Username</label>
+                    <input id="username" type="text" title="user name" value="{!User_Name}" required="required"
+                           placeholder="User name"/>
+                </div>
+                <div style="margin-top: 10px;">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" title="Password" value="{!Password}" required="required"
+                           placeholder="Password"/>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <apex:commandButton title="hello" value="hello " reRender="oppanel" action="{!checkLogin_Details}"
+                                        onComplete="getLoginDetails()"/>
+                    <apex:outputPanel id="oppanel" rendered="true"><br />
+                    student Id : {!students[0].Id}<br/>
+                    User name  : {!students[0].ECSV__User_Name__c}<br/>
+                    Password   : {!students[0].ECSV__Password__c}
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </apex:form>
+    </center>
+
+    <script>
+        function getLoginDetails() {
+            console.log('user name' + document.getElementById('username').value);
+            console.log('password' + document.getElementById('password').value);
+            console.log('all ' + JSON.stringify('{!students}'));
+        }
+    </script>
+
+</apex:page>

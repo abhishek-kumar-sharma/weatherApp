@@ -1,0 +1,83 @@
+<aura:component access="global" >
+    
+    <aura:attribute name="clear" default="false" type="Boolean"/>
+    <aura:attribute name="Program1Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program2Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program3Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program4Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program5Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program6Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program7Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program8Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program9Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program10Button" default="false" type="Boolean"/>
+    <aura:attribute name="Program2ReTryButton" default="false" type="Boolean" />
+    
+    <div style="width:100%;">
+        <!-- Clear --> 
+        <lightning:button label="Clear" class="slds-m-top--medium" variant="brand" onclick="{!c.clearHandler}"/>
+        <!-- Program 1 --> 
+        <lightning:button label="Program 1" class="slds-m-top--medium" variant="brand" onclick="{!c.button1Handler}"/>
+        <!-- Program 2 --> 
+        <lightning:button label="Program 2" class="slds-m-top--medium" variant="brand" onclick="{!c.button2Handler}"/>
+        <!-- Program 3 --> 
+        <lightning:button label="Program 3" class="slds-m-top--medium" variant="brand" onclick="{!c.button3Handler}"/>
+        <!-- Program 4  --> 
+        <lightning:button label="Program 4" class="slds-m-top--medium" variant="brand" onclick="{!c.button4Handler}"/>
+        <!-- Program 7 -->
+        <lightning:button label="Program 7" class="slds-m-top--medium" variant="brand" onclick="{!c.button7Handler}"/>
+        <!-- Program 8 -->
+        <lightning:button label="Program 8" class="slds-m-top--medium" variant="brand" onclick="{!c.button8Handler}"/>
+        <!-- Program 9 -->
+        <lightning:button label="Program 9" class="slds-m-top--medium" variant="brand" onclick="{!c.button9Handler}"/>
+         <!-- Program 10 by Rajat Sir wrapper example -->
+        <lightning:button label="Program 10" class="slds-m-top--medium" variant="brand" onclick="{!c.button10Handler}"/>
+        <!-- Program 2 re try -->
+        <lightning:button label="Program 2 Re Try" class="slds-m-top--medium" variant="brand" onclick="{!c.Program2ReTryButtonHandler}"/>
+        
+        
+        
+        
+        <!-- Program 1 Button -->
+        <aura:if isTrue="{!v.Program1Button}">
+            <c:AuraProgram1 />
+        </aura:if>
+        <!-- Program 2 Button -->
+        <aura:if isTrue="{!v.Program2Button}">
+            <c:AuraProgram2Cmp />
+        </aura:if>
+        <!-- Program 3 Button --> 
+        <aura:if isTrue="{!v.Program3Button}">
+            <c:AuraProgram3Cmp />
+        </aura:if>
+        <!-- Program 4 Button --> 
+        <aura:if isTrue="{!v.Program4Button}">
+            <c:AuraProgram4cmp />
+        </aura:if>
+        
+        <!--- Program 7 button -->
+        <aura:if isTrue="{!v.Program7Button}">
+            <c:TaskBComponent />
+        </aura:if>
+        <!-- Program 8 Button -->
+        <aura:if isTrue="{!v.Program8Button}">
+            <c:AuraProgram8cmp />
+        </aura:if>
+         <!-- Program 9 Button -->
+        <aura:if isTrue="{!v.Program9Button}">
+            <c:AuraProgram9cmp />
+        </aura:if>
+        
+        <!-- Program 10 button account status check -->
+        <aura:if isTrue="{!v.Program10Button}">
+            <c:AuraProgram10cmp />
+        </aura:if>
+
+        <aura:if isTrue="{!v.Program2ReTryButton}">
+        <c:AuraProgram2ReTry />
+        </aura:if>
+        
+        
+    </div>
+    
+</aura:component>

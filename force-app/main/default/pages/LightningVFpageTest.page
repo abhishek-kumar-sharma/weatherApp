@@ -1,0 +1,44 @@
+<apex:page showHeader="true" sidebar="true" >
+    Testing lightning component --->  LightningtVFTestComponent
+    <apex:includeLightning />
+    <!---- copy code --->
+    
+    <head>
+        <title>Lightning Test</title>
+        <apex:includeLightning />
+        <style>
+            * {
+            margin: 0;
+            padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="mappingDiv">
+            component apera here
+        </div>
+        
+        
+        javascript code copy to each lightning 
+        <script>
+        $Lightning.use("c:LightningtVFTestApplication", function () {
+            $Lightning.createComponent(
+                "c:LightningtVFTestComponent",
+                {recordId : "{!$CurrentPage.parameters.Id}",
+                 recordName :"{!$CurrentPage.parameters.Name}" },
+                "mappingDiv",
+                function (cmp) {
+                }
+            );
+        });
+        </script>
+    </body>
+    
+    
+    
+    
+    
+    
+    
+    
+</apex:page>

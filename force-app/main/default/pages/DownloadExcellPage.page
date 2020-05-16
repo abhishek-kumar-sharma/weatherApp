@@ -1,0 +1,11 @@
+<apex:page controller="ExportToExcellVFController" contentType="application/vnd.ms-excel#SalesForceExport.xls" cache="true">
+
+    <apex:pageBlock title="Export Results" >
+        <apex:pageBlockTable value="{!wrapperList}" var="wrap">
+            <apex:column value="{!wrap.Label}"/>
+            <apex:column value="{!wrap.APIName}"/>
+            <apex:column value="{!wrap.dataType}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+</apex:page>

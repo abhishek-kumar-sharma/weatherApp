@@ -1,0 +1,15 @@
+<apex:page sidebar="false" showHeader="false" >
+    <apex:pageBlock title="Hello page block" >
+        <apex:pageBlockSection collapsible="true" title="Hello page block section">
+            <apex:pageBlockSectionItem dataTitle="Hello page block section Item" >
+                Logged in User {!$User.FirstName}' '{!$User.LastName}<br/>
+                In one formula {!$User.FirstName+' '+$User.LastName}
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    <apex:pageBlockSection title="Second section">
+<pre>IF user name Match with current user name than display user full name</pre>
+    {!IF(CONTAINS($User.Username,'abhishek'),$User.FirstName+' '+$User.LastName,'User name not containt '+$User.FirstName)}
+        </apex:pageBlockSection>      
+    </apex:pageBlock>
+    
+</apex:page>

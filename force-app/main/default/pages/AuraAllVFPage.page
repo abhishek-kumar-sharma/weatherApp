@@ -1,0 +1,18 @@
+<apex:page standardStylesheets="true" lightningStylesheets="true" sidebar="false" showHeader="false"  >
+    <apex:includeLightning />
+    <script>
+    $Lightning.use("c:AuraAllApp",function()
+                   {
+                       $Lightning.createComponent("c:AuraAllCmp",{},
+                                                  "mainDiv",function(cmp)
+                                                  {
+                                                  });
+                   });
+    </script>
+    <apex:slds >    
+    <div id="mainDiv">
+                
+            </div>
+    </apex:slds>
+        
+</apex:page>

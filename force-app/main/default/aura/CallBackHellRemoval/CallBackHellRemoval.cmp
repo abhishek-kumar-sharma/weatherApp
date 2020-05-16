@@ -1,0 +1,75 @@
+<aura:component controller="CallBackHellRemovalController">
+
+    <!-- Attribute to store Account Data -->
+    <aura:attribute name="accountList" type="Account[]"/>
+    <!-- Attribute to store Opportunity Data -->
+    <aura:attribute name="opportunityList" type="Opportunity[]"/>
+    <!-- Attribute to store Account Data -->
+    <aura:attribute name="oliList" type="OpportunityLineItem[]"/>
+    <!-- Attribute to store Account Data -->
+    <aura:attribute name="productList" type="Product2[]"/>
+
+    <!-- Initilizing the lax component -->
+    <c:lax context="{!this}" />
+
+    <!-- Header Section start -->
+    <lightning:layout multipleRows="false">
+        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12"
+                              largeDeviceSize="12" padding="around-small">
+            <div class="slds-page-header" style="background-color: #f5c1c1;">
+                <h1 class="slds-page-header__title slds-truncate slds-align--absolute-center"
+                    title="JAVA SCRIPT CALL BACK HELL EXAMPLE">JAVA SCRIPT CALL BACK HELL EXAMPLE</h1>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- Header Section End -->
+<div class="slds-align--absolute-center">
+    <lightning:button label="Load Data With Call Back Hell" iconName="utility:world" variant="destructive" onclick="{!c.getData_Controller}" />
+    <lightning:button label="Load Data Without Call Back Hell" iconName="utility:world" variant="success" onclick="{!c.loadData_Controller}" />
+</div>
+    <!-- Content Heading Section start -->
+    <lightning:layout multipleRows="false">
+        <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                              largeDeviceSize="3" padding="around-small">
+            <span>Account</span>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                              largeDeviceSize="3" padding="around-small">
+            <span>Opportunity</span>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                              largeDeviceSize="3" padding="around-small">
+            <span>Opportunity line Item</span>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                              largeDeviceSize="3" padding="around-small">
+            <span>Product</span>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- Content Heading section End -->
+
+    <!-- Iteration and Data Section start -->
+    <lightning:layout multipleRows="true">
+        <aura:iteration items="{!v.productList}" var="product" indexVar="index">
+            <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                                  largeDeviceSize="3" padding="around-small">
+                <span>{!v.accountList[0].Name}</span>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                                  largeDeviceSize="3" padding="around-small">
+                <span>{!v.opportunityList[0].Name}</span>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                                  largeDeviceSize="3" padding="around-small">
+                <span>{!product.Name}</span>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" class="slds-align--absolute-center" smallDeviceSize="3" mediumDeviceSize="3"
+                                  largeDeviceSize="3" padding="around-small">
+                <span>{!product.CreatedBy.Name}</span>
+            </lightning:layoutItem>
+        </aura:iteration>
+    </lightning:layout>
+    <!-- Iteration and data section end -->
+
+
+</aura:component>

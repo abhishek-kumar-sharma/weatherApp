@@ -1,0 +1,14 @@
+<!--
+ - Created by abhishek on 22/3/18.
+ -->
+
+<aura:component description="SpeechToTextCmp" access="global">
+    <!-- Attribute to store text -->
+    <aura:attribute name="convertedText" type="String" />
+
+
+
+
+    
+
+</aura:component>

@@ -1,0 +1,8 @@
+<apex:page standardController="Contact">
+    <script>
+    function fun(){
+        alert();
+    }
+    </script>
+    <apex:detail inlineEdit="true" relatedList="false"/>
+</apex:page>

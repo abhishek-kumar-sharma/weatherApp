@@ -1,0 +1,56 @@
+<!--
+ - Created by ABHISHEK on 04-05-2019.
+ -->
+
+<aura:component description="CallServiceComponent">
+
+    <!-- Attribute Section start -->
+    <aura:attribute name="contacts" type="List" description="Attribute to hold contact list"/>
+
+    <!-- Aura handler and event section -->
+    <aura:handler name="init" value="{!this}" action="{!c.injectServiceComponent}"/>
+
+    <div id="main-Div">
+        <!-- Header layout -->
+        <lightning:layout class="slds-text-align--center">
+            <lightning:layoutItem class="" flexibility="auto" size="12" largeDeviceSize="12" mediumDeviceSize="12"
+                                  smallDeviceSize="12">
+                <div class="slds-truncate">
+                    Card Layout With Lazy Loading
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+
+        <!-- Content Area [Card Layout] -->
+        <lightning:layout class="slds-m-around--small" multipleRows="true">
+            <aura:iteration items="{!v.contacts}" var="contact">
+                <lightning:layoutItem flexibility="auto" largeDeviceSize="3" mediumDeviceSize="3" smallDeviceSize="3"
+                                      size="12">
+                    <lightning:tile class="slds-text-align--center slds-tile_board slds-m-around--small"
+                                    label="{!contact.Name}" href="{!concat('https://www.google.com/?q=',contact.Name)}">
+                        <!-- <aura:set attribute="media">
+                             <lightning:icon iconName="standard:groups"/>
+                         </aura:set>-->
+                        <dl class="slds-dl_horizontal">
+                            <dt class="slds-dl_horizontal__label">
+                                <p class="slds-cell-wrap" title="Owner">Owner:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-cell-wrap"
+                                   title="{!contact.Owner.Name}">{!contact.Owner.Name}</p>
+                            </dd>
+                            <dt class="slds-dl_horizontal__label">
+                                <p class="slds-cell-wrap" title="Email">Owner Email:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-cell-wrap"
+                                   title="{!contact.Owner.Email}">{!contact.Owner.Email}</p>
+                            </dd>
+                        </dl>
+                    </lightning:tile>
+                </lightning:layoutItem>
+            </aura:iteration>
+        </lightning:layout>
+
+    </div>
+</aura:component>

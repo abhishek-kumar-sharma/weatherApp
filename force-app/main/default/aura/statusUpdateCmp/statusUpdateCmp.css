@@ -1,0 +1,53 @@
+/**
+ * Created by ABHISHEK on 03-08-2019.
+ */
+.THIS {
+}
+
+.THIS .backgroundAnimator {
+    background: linear-gradient(270deg, #2f98ff, #d8dbdb);
+    background-size: 200%;
+    animation: CloudAnalogy 30s ease infinite;
+    animation-duration: 30s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: CloudAnalogy;
+    height: 100vh;
+    display: block;
+    overflow: auto;
+    padding-top: 11%;
+}
+
+@keyframes CloudAnalogy {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.THIS .setColorAndShadow {
+    width: 400px;
+    margin: 0 auto;
+    background: white;
+    padding: 2%;
+    box-shadow: rgb(141, 183, 224) 0px 2px 20px 3px;
+    border-radius: 4px;
+}
+
+.THIS .OverrideSldsInput .slds-input {
+    padding: 6px 5px !important;
+}
+
+.THIS .btnPaddingOverride.slds-button_brand {
+    padding: 6px 5px !important;
+    width: 100% !important;
+}

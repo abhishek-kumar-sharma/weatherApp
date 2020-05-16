@@ -1,0 +1,33 @@
+<!--
+Create a dataList that has 200 records and shows 10 records per page
+-->
+<apex:page controller="PaginateContactControllerExt" showHeader="true" sidebar="true" > 
+    <apex:slds >
+        <apex:form >
+            <apex:pageBlock title="Pagination Example " >
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Previous" action="{!previous}"></apex:commandButton>
+                    <apex:commandButton value="Next" action="{!next}" ></apex:commandButton>            
+                </apex:pageBlockButtons>
+                <apex:pageBlockTable value="{!conList}" var="con" >  
+                    <apex:column value="{!con.Name}" >
+                        <apex:facet name="header">Contact Name </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!con.Account.Name}" >
+                        <apex:facet name="header">Account Name </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!con.MobilePhone}" >
+                        <apex:facet name="header">Mobile Number </apex:facet>
+                    </apex:column>
+                    <apex:column value="{!con.CreatedBy.name}">
+                        <apex:facet name="header">Created By</apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable>     
+            </apex:pageBlock>
+        </apex:form>
+    </apex:slds>
+</apex:page>
+
+<!---
+<apex:commandButton value="Previous" action="{!previous}" ></apex:commandButton>
+<apex:commandButton value="Next" action="{!next}" ></apex:commandButton>-->

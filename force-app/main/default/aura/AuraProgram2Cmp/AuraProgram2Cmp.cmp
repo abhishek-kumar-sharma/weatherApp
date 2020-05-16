@@ -1,0 +1,50 @@
+<!--
+Created a page that will show all accounts with its opportunity and Contacts in picklist value
+ -->
+<aura:component access="global" controller="AuraProgram2ApexController" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.loadData}"/>
+    <aura:attribute name="accConOppData" Type="object[]"/>
+    
+    
+    <div id="header" style="width:1200px;" >
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div  title="Account Name">Account Name</div>
+                    </th>
+                    <th scope="col">
+                        <div  title="Contact Name">Contact Name</div>
+                    </th>
+                    <th scope="col">
+                        <div title="Opportunity Name">Opportunity Name</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.accConOppData}" var="allInOne">
+                    <tr>
+                        <td>{!allInOne.accName}</td>
+                        
+                       <td><select class="slds-select test" >
+                            <aura:iteration items="{!allInOne.wrapConList}" var="conTemp">
+                                <option>{!conTemp}</option>
+                            </aura:iteration>
+                            </select> 
+                        </td>
+                        
+                        <td><select class="slds-select test" >
+                            <aura:iteration items="{!allInOne.wrapOppList}" var="oppTemp">
+                                <option>{!oppTemp}</option>
+                            </aura:iteration>
+                            </select> 
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+            
+            
+        </table>
+    </div>
+</aura:component>

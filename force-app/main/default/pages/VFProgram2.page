@@ -1,0 +1,17 @@
+<!--
+Create a page that shows a datatable having 100 records
+-->
+<!--<apex:page controller="showAccountController" >-->
+<!--
+<apex:page standardController="Account" >
+    <apex:dataTable value="{!Account.Contacts}" var="Data">
+    <apex:column value="{!Data.Name}"/>
+    </apex:dataTable>
+</apex:page>-->
+<apex:page standardController="Account" extensions="helloEx">
+{!greeting}
+    <apex:form >
+        <apex:inputField value="{!Account.Name}"/>
+        <apex:commandButton action="{!helloWorld}" value="Save"/>
+    </apex:form>
+</apex:page>

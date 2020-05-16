@@ -1,0 +1,20 @@
+<apex:page sidebar="false" showHeader="false" lightningStylesheets="true">
+    <apex:includeLightning />
+    <script>
+    $Lightning.use("c:TaskALightningApp",function() {
+        $Lightning.createComponent("c:TaskALightning",
+                                   {},
+                                   "mainDiv",function(cmp){
+                                   }
+                                  );
+    });
+    </script>
+    <apex:slds >
+        <apex:pageBlock title="Registration Page" >
+            <body>
+                <div id="mainDiv"  >
+                </div>
+            </body>
+        </apex:pageBlock>
+    </apex:slds>
+</apex:page>

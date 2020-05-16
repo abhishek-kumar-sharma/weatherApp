@@ -1,0 +1,17 @@
+<apex:page standardController="Opportunity" extensions="OppCloseDateUpdateHandler"  showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <div id="TestDiv" >
+    </div>    
+    <script>
+    var pageId = "{!$CurrentPage.parameters.id}";
+    $Lightning.use("c:AuraProgram3VFCmpUpdateCloseDateApp", function () {
+        $Lightning.createComponent(
+            "c:AuraProgram3VFCmpUpdateCloseDate",
+            { "pageId":pageId},
+            "TestDiv",
+            function (cmp) {
+            }
+        );
+    });
+    </script> 
+</apex:page>

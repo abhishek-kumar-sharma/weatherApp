@@ -1,0 +1,55 @@
+<!--
+ - Created by ABHISHEK KUMAR SHARMA on 25-01-2020.
+ -->
+
+<aura:component description="D3DemoComponent">
+    <!-- Attribute and variable declaration section start -->
+    <!-- Attribute and variable declaration section end -->
+
+    <!-- Aura Handler and initialization section start -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInitController}"/>
+    <ltng:require scripts="{!join(',',
+                                    $Resource.donutAndJquery+'/Donut3D.js',
+                                    $Resource.donutAndJquery + '/jquery.js')
+                            }" afterScriptsLoaded="{!c.afterScriptLoadedController}"/>
+    <!-- Aura Handler and initialization section end -->
+
+    <!-- Body Container start -->
+    <div id="main-container">
+        <!-- Page Header section start style="background: rgb(243, 242, 242); border-radius: 10px; margin-top: 1.7%;" -->
+        <div id="page-header">
+            <lightning:layout multipleRows="false">
+                <lightning:layoutItem size="12" largeDeviceSize="12" mediumDeviceSize="12" smallDeviceSize="12">
+                    <div class="slds-page-header slds-box--border" style="border-radius: 10px">
+                        <div class="slds-media slds-p-around--small">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="action:web_link" class="slds-icon_container"/>
+                            </div>
+                            <div class="slds-media__body">
+                                <h1 class="slds-page-header__title slds-align-middle" title="DONUT CHART 3D">
+                                    DONUT CHART 3D </h1>
+                                <p class="slds-text-body--small slds-line-height--reset slds-color__text_gray-8">
+                                    Created By : Abhishek Kumar
+                                    Sharma</p>
+                            </div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+        <!-- Page Header section end -->
+
+        <!-- Page body section start -->
+        <div id="page-body-container">
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem size="12" largeDeviceSize="12" mediumDeviceSize="12" smallDeviceSize="12">
+
+                </lightning:layoutItem>
+            </lightning:layout>
+
+        </div>
+        <!-- Page body section end -->
+    </div>
+    <!-- Body Container end -->
+
+</aura:component>

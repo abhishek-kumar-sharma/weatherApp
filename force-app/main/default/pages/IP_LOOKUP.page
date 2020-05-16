@@ -1,0 +1,23 @@
+<!--
+ - Created by ABHISHEK on 05-01-2019.
+ -->
+
+<apex:page id="IP_LOOKUP" showChat="false" showHeader="false" sideBar="false" title="IP LOOKUP" standardStylesheets="true">
+
+    <apex:includeLightning />
+
+    <script>
+        $Lightning.use("ECSV:IP_Lookup_App",function()
+        {
+            $Lightning.createComponent("ECSV:IP_Lookup_Integration",{},
+                    "mainDiv",function(cmp)
+                    {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+        </div>
+    </apex:slds>
+
+</apex:page>

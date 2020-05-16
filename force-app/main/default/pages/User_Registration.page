@@ -1,0 +1,35 @@
+<!--
+ - Created by ABHISHEK on 01-03-2019.
+ -->
+
+<apex:page id="Login_Page" label="Login Page" standardStylesheets="true" lightningStylesheets="true" title="Login"
+           standardController="Student__c" extensions="studentCtrlExtension" sideBar="false" showHeader="false"
+           showChat="false" applyHtmlTag="false" applyBodyTag="false">
+
+    <center>
+        <div id="main-container" style="margin-top: 10px;">
+            <div>
+                <label for="username">Username</label>
+                <input id="username" type="text" title="user name" value="{!loginStudent.ECSV__User_Name__c}" required="required" placeholder="User name"/>
+            </div>
+            <div style="margin-top: 10px;">
+                <label for="password">Password</label>
+                <input id="password" type="password" title="Password" value="{!loginStudent.ECSV__Password__c}" required="required" placeholder="Password"/>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <button title="Login" onclick="getLoginDetails();"> Login !</button>
+            </div>
+        </div>
+    </center>
+
+    <script>
+        function getLoginDetails() {
+            console.log('user name'+document.getElementById('username').value);
+            console.log('password'+document.getElementById('password').value);
+            console.log('all '+'{!loginStudent.ECSV__User_Name__c}');
+            console.log('all '+'{!loginStudent.ECSV__Password__c}');
+        }
+    </script>
+
+</apex:page>

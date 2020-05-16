@@ -1,0 +1,22 @@
+<apex:page standardController="Opportunity" id="A" >
+    <script>
+    function myfunc(){
+        res=document.getElementById('A:B:C:D:G').value;
+        if(res=="Closed Won"){
+            
+        	document.getElementById('A:B:C:D:H').style='display:none';
+        }
+    }
+    </script>
+    <apex:form id="B"  onmouseover="myfunc()">
+        <apex:pageBlock Title="Opportunity Details" id="C">
+            <apex:pageBlockSection id="D">
+                <apex:inputField value="{!Opportunity.Name}" Id="E"/>
+                <apex:inputField value="{!Opportunity.CloseDate}" Id="F"/>
+                <apex:inputField value="{!Opportunity.StageName}" Id="G" />
+                <apex:commandButton value="TEST" disabled="False" id="H" />
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,21 @@
+<aura:component access="global" controller="OppCloseDateUpdateHandler">
+    <aura:attribute name="pageId" type="Id" />
+    <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium">Update Opportunity Close Date</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <div>
+                    <lightning:input type="date" label="Close Date" aura:id="newDate" required="true"/>
+                </div>
+            </div>
+            <div class="slds-modal__footer slds-modal__footer_directional">
+                <lightning:button label="Cancel" onclick="{!c.cancelButtonHandler}"/>
+                <lightning:button label="Update" onclick="{!c.updateButtonHandler}"/>
+                
+                
+            </div>
+        </div>
+    </div>  
+</aura:component>

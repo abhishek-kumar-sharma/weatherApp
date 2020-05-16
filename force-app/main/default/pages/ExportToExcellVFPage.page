@@ -1,0 +1,15 @@
+<apex:page standardStylesheets="false" showChat="false" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:TextToSpeechApp", function () {
+            $Lightning.createComponent("c:ExportToExcell", {},
+                    "mainDiv", function (cmp) {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>

@@ -1,0 +1,22 @@
+<!--
+ - Created by ABHISHEK on 11-09-2019.
+ -->
+
+<apex:page id="SessionExample" standardController="Contact" standardStylesheets="true">
+    <apex:form >
+        <apex:pageBlock title="Edit Contact">
+            <apex:pageBlockSection columns="2" collapsible="true">
+                <apex:inputField value="{!Contact.FirstName}"/>
+                <apex:inputField value="{!Contact.LastName}"/>
+                <apex:inputField value="{!Contact.Email}"/>
+                <apex:inputField value="{!Contact.Birthdate}"/>
+                {!Contact.Account.Name}
+                {!Contact.Account.NumberOfEmployees}
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="save"/>
+                <apex:commandButton action="{!cancel}" value="cancel"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,25 @@
+<!--- 
+"Develop the logic which shows/ hides the custom button (Test),if the stage is won on opportunity button is 
+shown and if not then not shown"
+-->
+<apex:page controller="showButtonOppController">
+    <script>
+    function hideButton()
+    {
+        var BValue = document.getElementById('{!$Component.formId.pbId.PbsId.repeatId.SatgeId}').value;
+        alert('aa'+BValue);
+    }
+    </script>
+    
+    <apex:form onmouseover="hideButton()" id="formId" rendered="true" >
+        <apex:pageBlock title="Oppotunity stage " id="pbId" >
+            <apex:pageBlockSection id="PbsId" >
+                <apex:repeat value="{!oppList}" id="repeatId" var="opp">
+                    <apex:outputText value="{!opp.Name}"/>
+                    <apex:outputText value="{!opp.StageName}" id="SatgeId" />
+                    <apex:outputText value="{!opp.closeDate}" />
+                    <apex:commandButton value="Test" disabled="false" id="ButId" reRender="hideButton()"  />
+                </apex:repeat>
+            </apex:pageBlockSection>   </apex:pageBlock>
+    </apex:form>
+</apex:page>

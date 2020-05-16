@@ -1,0 +1,20 @@
+<!--
+ - Created by ABHISHEK on 11/22/2018.
+ -->
+
+<apex:page id="testWindowPopup" sideBar="false">
+    <!--<apex:outputLink onclick="openPopup('{!$Page.test}','somevalue');">
+        Click
+    </apex:outputLink>-->
+
+    <apex:outputLink onclick="openPopup('https://www.google.com','somevalue');">
+        Open Google
+    </apex:outputLink>
+
+    <script>
+        function openPopup(page,param){
+            window.open(page+'?param='+param,'_blank', 'toolbar=no,status=yes,location=no,addressbar=no, scrollbars=yes, ' +
+                    'resizable=yes, top=100, left=200, width=900, height=800')
+        }
+    </script>
+</apex:page>

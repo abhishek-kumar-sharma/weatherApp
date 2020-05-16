@@ -1,0 +1,29 @@
+<apex:page controller="accont_list">
+ <apex:form > 
+<apex:pageBlock >
+ <apex:pageBlockSection title=" All Detail" columns="1"> 
+<apex:pageBlockTable value="{!accList}" var="acc" > 
+<apex:column >
+ <apex:facet name="header">Name</apex:facet> 
+<apex:outputText value="{!acc.Name}" /> 
+</apex:column> 
+<apex:column > 
+<apex:facet name="header">Account Number</apex:facet>
+ <apex:outputText value="{!acc.AccountNumber}" /> 
+</apex:column> 
+<apex:column > 
+<apex:facet name="header">Phone</apex:facet>
+ <apex:outputText value="{!acc.Phone}" />
+ </apex:column> 
+<apex:column > 
+<apex:facet name="header">Phone</apex:facet> 
+
+<apex:commandLink action="{!deleteDeal}" onclick="if(!confirm('Are you sure?')) return false;">Del 
+    <apex:param value="{!acc.Id}" name="idToDel" assignTo="{!dealId}"/> </apex:commandLink>
+
+ </apex:column>
+ </apex:pageBlockTable>
+ </apex:pageBlockSection> 
+</apex:pageBlock>
+ </apex:form> 
+</apex:page>

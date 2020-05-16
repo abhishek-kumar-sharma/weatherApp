@@ -1,0 +1,19 @@
+<!--
+ - Created by ABHISHEK on 13-06-2019.
+ -->
+
+<apex:page id="bigQuery" standardStylesheets="false" lightningStylesheets="true" showChat="false" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:bigQueryApp", function () {
+            $Lightning.createComponent("c:bigQuery_Component", {},
+                    "mainDiv", function (cmp) {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>

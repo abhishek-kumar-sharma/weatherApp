@@ -1,0 +1,99 @@
+<aura:component controller="SfdcToSfdcController" access="global" description="SfdcToSfdc">
+
+    <!-- Attribute to store new Account values -->
+    <aura:attribute name="newAccount" type="Account" default="{'sobjectType':'Account'}"/>
+
+    <!--jquery version 3.3.1 -->
+    <ltng:require scripts="{!$Resource.jquery + '/jquery.js'}"
+                  afterScriptsLoaded="{!c.scriptsLoaded}"/>
+    <div>
+        <lightning:layout horizontalAlign="space" multipleRows="true">
+            <lightning:layoutItem flexibility="auto" size="12" smallDeviceSize="12" mediumDeviceSize="12"
+                                  largeDeviceSize="12" padding="around-small">
+                <div class="slds-page-header">
+                    <h1 class="slds-page-header__title slds-align--absolute-center slds-truncate slds-align-middle"
+                        title="SFDC">... SFDC TO SFDC INTEGRATION ...</h1>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-align--absolute-center" flexibility="auto" size="12" smallDeviceSize="12"
+                                  mediumDeviceSize="6" largeDeviceSize="12" padding="around-small">
+                <lightning:button variant="brand" label="Create New Account" onclick="{!c.showAccountModal}"/>
+            </lightning:layoutItem>
+
+            <div class="slds-hide" id="showModal">
+                <lightning:layoutItem flexibility="auto" size="12" smallDeviceSize="1" mediumDeviceSize="6"
+                                      largeDeviceSize="12">
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                             aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New
+                                    Account</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <div class="slds-page-header">
+                                    <h1 class="slds-page-header__title slds-truncate slds-text-align--left"
+                                        title="Account Information">Account Information</h1>
+                                </div>
+                                <lightning:input type="text" label="Account Name" name="Name"
+                                                 value="{!v.newAccount.Name}" required="true"
+                                                 messageWhenValueMissing="Account Name is mandatory"/>
+                                <lightning:input type="tel" label="Account Phone" name="phone"
+                                                 value="{!v.newAccount.Phone}"/>
+                                <lightning:input type="text" label="Account Fax" name="fax"
+                                                 value="{!v.newAccount.Fax}"/>
+                                <lightning:input type="text" label="Account Website" name="website"
+                                                 value="{!v.newAccount.Website}"/>
+
+                            </div>
+
+                            <footer class="slds-modal__footer slds-modal__footer_directional">
+                                <lightning:button variant="destructive" onclick="{!c.cancelAccount}">Cancel
+                                </lightning:button>
+                                <lightning:button variant="brand" onclick="{!c.createNewAccount}">Save
+                                </lightning:button>
+                            </footer>
+
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </lightning:layoutItem>
+            </div>
+
+            <div id="successToast" class="slds-hide">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_success" role="alert">
+                        <span class="slds-assistive-text">success</span>
+                        <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                              title="Description of icon when needed">
+                            <lightning:icon iconName="utility:success" size="x-small" alternativeText="Success"/>
+                        </span>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">Account created Successfully.</h2>
+                        </div>
+                        <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse"
+                                title="Close">
+                            <lightning:icon iconName="utility:close" alternativeText="Close" size="x-small"/>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </lightning:layout>
+    </div>
+</aura:component>
+
+
+<!--<fieldset>-->
+<!--<legend>Select your favorite color:</legend>-->
+<!--<lightning:input type="checkbox" label="Red"-->
+<!--name="color1" value="1" aura:id="colors"/>-->
+<!--<lightning:input type="checkbox" label="Blue"-->
+<!--name="color2" value="2" aura:id="colors"/>-->
+<!--<lightning:input type="checkbox" label="Green"-->
+<!--name="color3" value="3" aura:id="colors"/>-->
+<!--</fieldset>-->

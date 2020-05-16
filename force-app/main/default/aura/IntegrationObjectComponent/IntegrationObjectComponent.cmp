@@ -1,0 +1,57 @@
+<!--
+- Created by ABHISHEK on 17-07-2019.
+-->
+
+<aura:component description="IntegrationObjectComponent"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction"
+                access="global" controller="linkOpportunityAndIntegration">
+    <!-- Attribute section start -->
+    <aura:attribute name="recordId" type="Id" access="global" description="Attribute to store the current record id"/>
+    <aura:attribute name="showToast" type="Boolean" default="false" description="Attribute to show hide the toast message"/>
+    <aura:attribute name="toastThemeClass" type="String" default="slds-notify slds-notify_toast slds-theme_success" description="Attribute to change the toast theme{slds-theme_warning,slds-theme_error}" />
+    <aura:attribute name="toastMessage" type="String" description="Attribute to hold the toast message" />
+    <!-- Attribute section end -->
+<!--   optional if you are not specify the layout type then it is needed
+    <aura:attribute name="fields" type="String[]" default="['Name','ECSV__Integration_Id__c','ECSV__Unique_Name__c',
+'ECSV__DB_Id__c','ECSV__Vendor_name__c','ECSV__Status__c','ECSV__Vendor_Site__c','ECSV__Custom_Integration__c']"/>-->
+
+
+
+
+    
+    Go ahead create new integration =={!v.recordId}
+
+    <div>
+        <!-- start of Toast code for handling the messaging -->
+        <div class="{!v.showToast ? 'slds-show' : 'slds-hide'}">
+            <div class="slds-notify_container slds-is-relative">
+                <div class="{!v.toastThemeClass}" role="status">
+                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                      title="Close"></span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">
+                    {!v.toastMessage}
+                    </h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                            <lightning:buttonIcon alternativeText="Close" iconName="utility:close"
+                                                  variant="bare-inverse"/>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Toast code for handling the messaging -->
+
+        <!-- Record Form Area start here -->
+        <lightning:recordForm
+                objectApiName="ECSV__Integration__c"
+                layoutType="Full"
+                onsuccess="{!c.handleSuccess}"/>
+        <!-- Record Form Area end here -->
+    </div>
+
+
+</aura:component>

@@ -1,0 +1,23 @@
+<!--
+ - Created by abhishek on 8/3/18.
+ -->
+
+<apex:page id="MyWorkbenchVFPage" showHeader="false" sideBar="false" lightningStylesheets="true" standardStylesheets="true">
+
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:MyWorkbenchApp",function()
+        {
+            $Lightning.createComponent("c:MyWorkbenchCmp",{},
+                    "mainDiv",function(cmp)
+                    {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+
+</apex:page>

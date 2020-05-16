@@ -1,0 +1,35 @@
+<aura:component access="global" implements="force:hasRecordId" >
+    <pre><h1>Test Component</h1></pre>
+    <br> component Addition  access="global" implements="force:hasRecordId" </br>
+    
+    <aura:attribute name="recordId" type="String"></aura:attribute>//data type in component
+    <aura:attribute name="recordName" type="String" default="defaultValue"/>
+    <aura:attribute name="boolValue" type="Boolean" default="True"/>
+    
+    Test record Id {!v.recordId}
+    Test record Last name {!v.recordName}
+    
+    
+    <aura:attribute name="checkDefault" type="String" default="hello Default"/>    
+    
+    <lightning:input type="text" label="Enter Text" name="nameTest" placeholder="Enter your Name" class="slds-input" onChange="{!c.updateOnValue}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.AreInit}"/>
+    
+  aura If example
+    
+    <aura:if isTrue="{!v.boolValue}">
+    first If
+        </aura:if>
+    <aura:if isTrue="{!v.boolValue}">
+    
+    second Value
+    </aura:if>
+    
+    
+    
+    
+    
+  
+</aura:component>

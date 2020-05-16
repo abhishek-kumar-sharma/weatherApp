@@ -1,0 +1,58 @@
+<!--
+*********************************************************************************************************************
+Created by : Abhishek Kumar Sharma
+[CAT-RAJAT] : Cloud Analogy
+Date : 07-October-2018
+Description : This component is created to test the Summer 2018 important release for Dev
+It includes the use of following new component and event
+
+*********************************************************************************************************************
+Note: All the things are tested in lightning experience so please make sure before using in ltng:outApp and visual force pages or community
+-->
+<aura:component controller="Summer_2018_High_Lights_Controller">
+
+    <!-- Attribute to store data for data table contains all the account -->
+    <aura:attribute name="dataTableData" type="object[]" default="[]"/>
+    <!-- Attribute to store column for data table -->
+    <aura:attribute name="dataTableColumns" type="List"/>
+    <!-- Attribute to store draft values (Inline edited values in data table)-->
+    <aura:attribute name="draftValue" type="Object" default="[]"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+
+    <!-- Aura handler on init event to load data from server -->
+    <aura:handler action="{!c.doInit}" value="{!this}" name="init"/>
+
+    <div>
+        <lightning:layout multipleRows="true" class="slds-m-around--small">
+            <!-- Page Header -->
+            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                <div class="slds-page-header" style="color: white;background-color: #dada90;">
+                    <h1 class="slds-page-header__title slds-align--absolute-center">
+                        <span>Summer 2018 High Lights</span>
+                    </h1>
+                </div>
+            </lightning:layoutItem>
+
+            <!-- Testing the lightning:dataTable mass edit and save functionality -->
+            <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                <div style="height: 400px">
+                    <aura:if isTrue="{!!empty(v.dataTableData)}">
+                        <lightning:datatable
+                                aura:id="accountDataTable"
+                                columns="{! v.dataTableColumns }"
+                                data="{! v.dataTableData }"
+                                keyField="id"
+                                errors="{! v.errors }"
+                                draftValues="{!v.draftValue}"
+                                onsave="{!c.onSaveOfDataTable_Controller }"
+                                oncancel="{!c.onCancelOfDataTable_Controller}"
+                        />
+                        <aura:set attribute="else">
+                            <span><h2>No data found for data table</h2></span>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

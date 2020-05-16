@@ -1,0 +1,46 @@
+<!--Create a VFpage which should display a list of Schedule 
+jobs running with its details(Name, Duration, ID) and a "Delete" 
+button which once clicked should stop the jobs running for 
+that batch class and should delete that batch class
+
+Page name - BatProgram12
+Controller - BatProgram12Controller
+-->
+
+<apex:page controller="BatProgram12Controller" lightningStylesheets="true" showHeader="true">
+    <apex:slds >  
+        <apex:pageBlock title="List of schedule job"> 
+            <apex:form styleClass="slds-form-element">
+                <apex:dataTable value="{!jobList}" var="job">
+                    <apex:column >
+                        <apex:facet name="header">Cron Expression</apex:facet>
+                        <apex:outputText value="{!job.CronExpression}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Cron Job Detail</apex:facet>
+                        <apex:outputText value="{!job.CronJobDetail.Name}"/>
+                    </apex:column>  
+                    <apex:column >
+                        <apex:facet name="header">Next Fire Time</apex:facet>
+                        <apex:outputText value="{!job.NextFireTime}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Start Time</apex:facet>
+                        <apex:outputText value="{!job.StartTime}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">State</apex:facet>
+                        <apex:outputText value="{!job.State}"/>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Option</apex:facet>
+                        <apex:commandButton value="Delete" action="{!deleteHandler}">
+                            <apex:param name="DelRowId" value="{!job.Id}"/>
+                        </apex:commandButton> 
+                    </apex:column>
+                </apex:dataTable>
+            </apex:form>
+        </apex:pageBlock>
+    </apex:slds>
+</apex:page>

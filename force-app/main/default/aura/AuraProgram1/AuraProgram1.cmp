@@ -1,0 +1,87 @@
+<!-- AuraProgram1.cmp--> 
+<aura:component access="global" implements="force:hasRecordId" controller="AuraProgram1Controller" >
+    
+    <aura:attribute name="newAccount" type="Account" default="{'sobjectType' : 'Account'}"/>
+
+    <ltng:require afterScriptsLoaded="{!c.setFocus}"/>
+
+    <!-- PAGE HEADER -->
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem >
+            <lightning:icon iconName="standard:scan_card" alternativeText="Account"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">Accounts</h1>
+                <h2 class="slds-text-heading--medium">Create Account</h2>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- / PAGE HEADER -->
+    
+    <!-- NEW EXPENSE FORM -->
+    <lightning:layout >
+        <lightning:layoutItem padding="around-small" size="10">
+            
+            <!-- CREATE NEW EXPENSE -->
+            <div aria-labelledby="accountform">
+                
+                <!-- BOXED AREA -->
+                <fieldset class="slds-box slds-theme--default slds-container--small">
+                    
+                    <legend id="accountform" class="slds-text-heading--small slds-p-vertical--medium">
+                       Add Account
+                    </legend>
+                    
+                    <!-- CREATE NEW EXPENSE FORM -->
+                    <form class="slds-form--stacked" onload="{!c.setFocus}">
+                        <lightning:input aura:id="Name" label="Account Name"
+                                         name="Name"
+                                         Type="text"
+                                         value="{!v.newAccount.Name}"
+                                         required="true"
+                                         messageWhenValueMissing="Account Name is required ."
+                                         placeholder="Account Name"/>
+                        
+                        <lightning:input aura:id="Site" label="Site"
+                                         name="Site"
+                                         Type="text"
+                                         value="{!v.newAccount.Site}"
+                                         placeholder="Account site "/>
+                        
+                        <lightning:input aura:id="Industry" label="Industry"
+                                         name="Industry"
+                                         Type="text"
+                                         value="{!v.newAccount.Industry}"
+                                         placeholder="Account Industry "/>
+                        
+                        <lightning:input aura:id="NumberOfEmployees" label="Number Of Employees"
+                                         name="NumberOfEmployees"
+                                         Type="Number"
+                                         value="{!v.newAccount.NumberOfEmployees}"
+                                         placeholder="Account Number Of Employees "/>
+                        
+                        <lightning:input aura:id="Phone" label="Phone"
+                                         name="Phone"
+                                         Type="number"
+                                         value="{!v.newAccount.Phone}"
+                                         placeholder="Account Phone " 
+                                         minlength="10"
+                                         maxlength="10"/>
+                        
+                        <lightning:button label="Create Account" 
+                                          class="slds-m-top--medium"
+                                          variant="brand"
+                                          onclick="{!c.clickControllerAccount}"/>
+                    </form>
+                    <!-- / CREATE NEW EXPENSE FORM -->
+                    
+                </fieldset>
+                <!-- / BOXED AREA -->
+                
+            </div>
+            <!-- / CREATE NEW EXPENSE -->
+            
+        </lightning:layoutItem>
+    </lightning:layout>  
+</aura:component>

@@ -1,0 +1,21 @@
+<!-- AgainVFForLightning --> 
+
+<apex:page >
+    <script>
+    $Lightning.use("c:AgainVFForLightningApplication", function () {
+        $Lightning.createComponent(
+            "c:AgainVFForLightningComponent",
+             {recordId  : "{!$CurrentPage.parameters.id}" },
+            "myDiv",
+            function (cmp) {
+            }
+        ); 
+    });
+    </script>
+    
+    <apex:includeLightning />
+    <div id="myDiv">
+        Component Data occurred below  .......
+    </div>
+    
+</apex:page>

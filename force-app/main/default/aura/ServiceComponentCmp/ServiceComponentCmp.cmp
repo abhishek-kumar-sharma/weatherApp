@@ -1,0 +1,10 @@
+<!--
+ - Created by ABHISHEK on 02-05-2019
+ - Service component to serve data
+ -->
+
+<aura:component description="ServiceComponentCmp" controller="service_Component">
+    <!-- Aura handler and event section -->
+    <aura:handler name="init" value="{!this}" action="{!c.loadInitialData}"/>
+
+</aura:component>

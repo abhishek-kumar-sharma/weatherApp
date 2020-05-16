@@ -1,0 +1,85 @@
+<aura:component description="login component " >
+
+    <!-- Attribute section -->
+    <aura:attribute name="loginId" type="String" access="public" description="Attribute to store login id"/>
+    <aura:attribute name="password" type="String" access="global" description="Attribute to store password"/>
+    <aura:attribute name="tabIndex" type="Integer" default="0"/>
+    <!-- Handler Section -->
+    <aura:handler action="{!c.initializedLoginForm}" value="{!this}" name="init"/>
+
+
+    <div id="login-container">
+        <!-- Page Header section start style="background: rgb(243, 242, 242); border-radius: 10px; margin-top: 1.7%;" -->
+        <div id="page-header">
+            <lightning:layout multipleRows="false">
+                <lightning:layoutItem size="12" largeDeviceSize="12" mediumDeviceSize="12" smallDeviceSize="12">
+                    <div class="slds-page-header slds-box--border" style="border-radius: 10px">
+                        <div class="slds-media slds-p-around--small">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="action:web_link" class="slds-icon_container"/>
+                            </div>
+                            <div class="slds-media__body">
+                                <h1 class="slds-page-header__title slds-align-middle" title="Custom Login">
+                                    Custom Login </h1>
+                                <p class="slds-text-body--small slds-line-height--reset slds-color__text_gray-8">
+                                    Created By : Abhishek Kumar
+                                    Sharma</p>
+                            </div>
+                        </div>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+        <!-- Page Header section end -->
+
+        <div class="slds-grid slds-m-around--medium backgroundColorCornflowerBlue slds-grid_align-space ">
+            <div class="slds-col"></div>
+            <div class="slds-col slds-m-around--medium backgroundColorWhite">
+                <!-- Animated section start here -->
+                <div class="slds-grid slds-m-around--medium">
+                    <div class="slds-col">
+                        <div class="{!v.tabIndex == 0 ?'slds-show':'slds-hide'}">
+                            <img src="{!$Resource.idelLogin}" width="210" />
+                        </div>
+                        <div class="{!v.tabIndex == 1 ?'slds-show':'slds-hide'}">
+                            <video width="210"  style="border-radius: 50%;" muted="muted" loop="loop"
+                                   autoplay="autoplay">
+                                <source src="{!$Resource.email_mov}" type="video/mp4"/>
+                            </video>
+                        </div>
+                        <div class="{!v.tabIndex == 2 ?'slds-show':'slds-hide'}">
+                            <video width="210"  style="border-radius: 50%;" muted="muted" loop="loop"
+                                   autoplay="autoplay">
+                                <source src="{!$Resource.pass_mov}" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid slds-m-around--medium">
+                    <div class="slds-col slds-m-top--small">
+                        <lightning:input tabindex="1" onfocus="{!c.changeVideo}" onblur="{!c.setTabIndexZero}"
+                                         label="Email" name="email" type="email" autocomplete="off"
+                                         value="{!v.loginId}" placeholder="login@domain.com"
+                                         required="true" messageWhenValueMissing="Email is required"/>
+                    </div>
+                </div>
+                <div class="slds-grid slds-m-around--medium">
+                    <div class="slds-col slds-m-top--small">
+                        <lightning:input tabindex="2" onblur="{!c.setTabIndexZero}" onfocus="{!c.changeVideo}"
+                                         label="Password" name="Password" autocomplete="off"
+                                         type="password" value="{!v.password}" placeholder="*********"
+                                         required="true" messageWhenValueMissing="Password is required"/>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-m-top--small slds-m-bottom--large slds-align--absolute-center">
+                        <lightning:button variant="brand" label="Log in" onclick="{!c.checkDetails}"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="slds-col"></div>
+        </div>
+    </div>
+</aura:component>

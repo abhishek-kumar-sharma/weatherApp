@@ -1,0 +1,24 @@
+<!--
+ - Created by Abhishek Kumar Sharma on 6/23/2018.
+ -->
+
+<apex:page id="RatingStarsVFPage" standardStylesheets="false" lightningStylesheets="true" sideBar="false" showHeader="false">
+
+<apex:includeLightning />
+
+    <script>
+        $Lightning.use("ECSV:RatingStarsApp",function()
+        {
+            $Lightning.createComponent("ECSV:ratingStars",{},
+                "mainDiv",function(cmp)
+                {
+                });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+
+</apex:page>

@@ -1,0 +1,22 @@
+<aura:component controller="AuraProgram3Controller">
+    
+    <!-- attribute to store opportunity list -->
+    <aura:attribute name="oppOptions" type="Object"/>
+    
+    <!--  attribute to store columns  -->
+    <aura:attribute name="oppColumns" type="List"/>
+    
+    <!-- handler to load opportunity -->
+    <aura:handler action="{!c.init}" name="init" value="{!this}" />
+    
+    <div style="width:80%;margin-top: 26px;" class="test">
+        <lightning:datatable data="{!v.oppOptions}"
+                             columns="{!v.oppColumns}"
+                             keyField="Id"
+                             onrowselection="{!c.getSelectedRow }"
+                             />
+    </div>
+    
+    
+    
+</aura:component>

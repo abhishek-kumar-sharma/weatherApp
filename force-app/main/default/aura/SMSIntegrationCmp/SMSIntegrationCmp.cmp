@@ -1,0 +1,308 @@
+<aura:component description="SMSIntegrationCmp" access="global" controller="SmsAPIIntegrationController">
+
+    <!-- Attribute to store Sender Short Name -->
+    <aura:attribute name="senderShortName" type="String"/>
+    <!-- Attribute to store Route information -->
+    <aura:attribute name="routeCode" type="Integer"/>
+    <!-- Attribute to store Country code -->
+    <aura:attribute name="countryCode" type="String" default="91"/>
+    <!-- Attribute to store Reciver Mobile Number -->
+    <aura:attribute name="receiverMobileNumber" type="Long"/>
+    <!-- Attribute to store message body -->
+    <aura:attribute name="msgBody" type="String"/>
+
+
+    <!-- Page Header -->
+    <div class="slds-page-header slds-m-around--small " style="background-color: aliceblue">
+        <div class="slds-page-header__title slds-truncate slds-align--absolute-center">
+            <h1>SMS INTEGRATION EXAMPLE</h1>
+        </div>
+    </div>
+
+    <!-- User Information Section -->
+    <div class="slds-grid slds-wrap slds-m-around--xx-large" style="background-color: aliceblue">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-align--absolute-center slds-p-around--small  ">
+            <ui:outputText value="Sender :" class="slds-text-align--right"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:inputText class="slds-input" required="true" placeholder="Sender Short Name..."
+                          value="{!v.senderShortName}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-align--absolute-center slds-p-around--small">
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:outputText value="Route : "/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align--absolute-center slds-p-around--small">
+            <!--<ui:inputText class="slds-input" required="true" placeholder="Route code ..." value="{!v.routeCode}"/>-->
+            <ui:inputSelect class="slds-select_container slds-input" multiple="false" value="{!v.routeCode}"
+                            required="true" updateOn="change">
+                <ui:inputSelectOption class="slds-select slds-input"    label="Transactional Message" text="4"
+                                      value="true"/>
+                <ui:inputSelectOption class="slds-select slds-input"    label="Promational Message" text="1"/>
+            </ui:inputSelect>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-align--absolute-center slds-p-around--small">
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:outputText value="Country Code :"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align--absolute-center slds-p-around--small">
+            <!--<ui:inputText class="slds-input" required="true" placeholder="Country code Name..." value="{!v.countryCode}"/>-->
+
+            <!-- country codes (ISO 3166) and Dial codes. -->
+            <ui:inputSelect class="slds-input" value="{!v.countryCode}" multiple="false" updateOn="change">
+                <ui:inputSelectOption text="91"    label="India (+91)"	/>
+                <ui:inputSelectOption text="44"	   label="UK (+44)"	/>
+                <ui:inputSelectOption text="1"	   label="USA (+1)"	/>
+                <ui:inputSelectOption text="213"	   label="Algeria (+213)"	/>
+                <ui:inputSelectOption text="376"	   label="Andorra (+376)"	/>
+                <ui:inputSelectOption text="244"	   label="Angola (+244)"	/>
+                <ui:inputSelectOption text="1264"	   label="Anguilla (+1264)"	/>
+                <ui:inputSelectOption text="1268"	   label="Antigua &amp; Barbuda (+1268)"	/>
+                <ui:inputSelectOption text="54"	   label="Argentina (+54)"	/>
+                <ui:inputSelectOption text="374"	   label="Armenia (+374)"	/>
+                <ui:inputSelectOption text="297"	   label="Aruba (+297)"	/>
+                <ui:inputSelectOption text="61"	  label="Australia (+61)"	/>
+                <ui:inputSelectOption text="43"	  label="Austria (+43)"	/>
+                <ui:inputSelectOption text="994"	  label="Azerbaijan (+994)"	/>
+                <ui:inputSelectOption text="1242"	  label="Bahamas (+1242)"	/>
+                <ui:inputSelectOption text="973"	  label="Bahrain (+973)"	/>
+                <ui:inputSelectOption text="880"	  label="Bangladesh (+880)"	/>
+                <ui:inputSelectOption text="1246"	  label="Barbados (+1246)"	/>
+                <ui:inputSelectOption text="375"	  label="Belarus (+375)"	/>
+                <ui:inputSelectOption text="32"	  label="Belgium (+32)"	/>
+                <ui:inputSelectOption text="501"	  label="Belize (+501)"	/>
+                <ui:inputSelectOption text="229"	  label="Benin (+229)"	/>
+                <ui:inputSelectOption text="1441"	  label="Bermuda (+1441)"	/>
+                <ui:inputSelectOption text="975"	  label="Bhutan (+975)"	/>
+                <ui:inputSelectOption text="591"	  label="Bolivia (+591)"	/>
+                <ui:inputSelectOption text="387"	  label="Bosnia Herzegovina (+387)"	/>
+                <ui:inputSelectOption text="267"	  label="Botswana (+267)"	/>
+                <ui:inputSelectOption text="55"	  label="Brazil (+55)"	/>
+                <ui:inputSelectOption text="673"	  label="Brunei (+673)"	/>
+                <ui:inputSelectOption text="359"	  label="Bulgaria (+359)"	/>
+                <ui:inputSelectOption text="226"	  label="Burkina Faso (+226)"	/>
+                <ui:inputSelectOption text="257"	  label="Burundi (+257)"	/>
+                <ui:inputSelectOption text="855"	  label="Cambodia (+855)"	/>
+                <ui:inputSelectOption text="237"	  label="Cameroon (+237)"	/>
+                <ui:inputSelectOption text="1"	  label="Canada (+1)"	/>
+                <ui:inputSelectOption text="238"	  label="Cape Verde Islands (+238)"	/>
+                <ui:inputSelectOption text="1345"	  label="Cayman Islands (+1345)"	/>
+                <ui:inputSelectOption text="236"	  label="Central African Republic (+236)"	/>
+                <ui:inputSelectOption text="56"	  label="Chile (+56)"	/>
+                <ui:inputSelectOption text="86"	  label="China (+86)"	/>
+                <ui:inputSelectOption text="57"	  label="Colombia (+57)"	/>
+                <ui:inputSelectOption text="269"	  label="Comoros (+269)"	/>
+                <ui:inputSelectOption text="242"	  label="Congo (+242)"	/>
+                <ui:inputSelectOption text="682"	  label="Cook Islands (+682)"	/>
+                <ui:inputSelectOption text="506"	  label="Costa Rica (+506)"	/>
+                <ui:inputSelectOption text="385"	  label="Croatia (+385)"	/>
+                <ui:inputSelectOption text="53"	  label="Cuba (+53)"	/>
+                <ui:inputSelectOption text="90392"	  label="Cyprus North (+90392)"	/>
+                <ui:inputSelectOption text="357"	  label="Cyprus South (+357)"	/>
+                <ui:inputSelectOption text="42"	  label="Czech Republic (+42)"	/>
+                <ui:inputSelectOption text="45"	  label="Denmark (+45)"	/>
+                <ui:inputSelectOption text="253"	  label="Djibouti (+253)"	/>
+                <ui:inputSelectOption text="1809"	  label="Dominica (+1809)"	/>
+                <ui:inputSelectOption text="1809"	  label="Dominican Republic (+1809)"	/>
+                <ui:inputSelectOption text="593"	  label="Ecuador (+593)"	/>
+                <ui:inputSelectOption text="20"	  label="Egypt (+20)"	/>
+                <ui:inputSelectOption text="503"	  label="El Salvador (+503)"	/>
+                <ui:inputSelectOption text="240"	  label="Equatorial Guinea (+240)"	/>
+                <ui:inputSelectOption text="291"	  label="Eritrea (+291)"	/>
+                <ui:inputSelectOption text="372"	  label="Estonia (+372)"	/>
+                <ui:inputSelectOption text="251"	  label="Ethiopia (+251)"	/>
+                <ui:inputSelectOption text="500"	  label="Falkland Islands (+500)"	/>
+                <ui:inputSelectOption text="298"	  label="Faroe Islands (+298)"	/>
+                <ui:inputSelectOption text="679"	  label="Fiji (+679)"	/>
+                <ui:inputSelectOption text="358"	  label="Finland (+358)"	/>
+                <ui:inputSelectOption text="33"	  label="France (+33)"	/>
+                <ui:inputSelectOption text="594"	  label="French Guiana (+594)"	/>
+                <ui:inputSelectOption text="689"	  label="French Polynesia (+689)"	/>
+                <ui:inputSelectOption text="241"	  label="Gabon (+241)"	/>
+                <ui:inputSelectOption text="220"	  label="Gambia (+220)"	/>
+                <ui:inputSelectOption text="7880"	  label="Georgia (+7880)"	/>
+                <ui:inputSelectOption text="49"	  label="Germany (+49)"	/>
+                <ui:inputSelectOption text="233"	  label="Ghana (+233)"	/>
+                <ui:inputSelectOption text="350"	  label="Gibraltar (+350)"	/>
+                <ui:inputSelectOption text="30"	  label="Greece (+30)"	/>
+                <ui:inputSelectOption text="299"	  label="Greenland (+299)"	/>
+                <ui:inputSelectOption text="1473"	  label="Grenada (+1473)"	/>
+                <ui:inputSelectOption text="590"	  label="Guadeloupe (+590)"	/>
+                <ui:inputSelectOption text="671"	  label="Guam (+671)"	/>
+                <ui:inputSelectOption text="502"	  label="Guatemala (+502)"	/>
+                <ui:inputSelectOption text="224"	  label="Guinea (+224)"	/>
+                <ui:inputSelectOption text="245"	  label="Guinea - Bissau (+245)"	/>
+                <ui:inputSelectOption text="592"	  label="Guyana (+592)"	/>
+                <ui:inputSelectOption text="509"	  label="Haiti (+509)"	/>
+                <ui:inputSelectOption text="504"	  label="Honduras (+504)"	/>
+                <ui:inputSelectOption text="852"	  label="Hong Kong (+852)"	/>
+                <ui:inputSelectOption text="36"	  label="Hungary (+36)"	/>
+                <ui:inputSelectOption text="354"	  label="Iceland (+354)"	/>
+                <ui:inputSelectOption text="62"	  label="Indonesia (+62)"	/>
+                <ui:inputSelectOption text="98"	  label="Iran (+98)"	/>
+                <ui:inputSelectOption text="964"	  label="Iraq (+964)"	/>
+                <ui:inputSelectOption text="353"	  label="Ireland (+353)"	/>
+                <ui:inputSelectOption text="972"	  label="Israel (+972)"	/>
+                <ui:inputSelectOption text="39"	  label="Italy (+39)"	/>
+                <ui:inputSelectOption text="1876"	  label="Jamaica (+1876)"	/>
+                <ui:inputSelectOption text="81"	  label="Japan (+81)"	/>
+                <ui:inputSelectOption text="962"	  label="Jordan (+962)"	/>
+                <ui:inputSelectOption text="7"	  label="Kazakhstan (+7)"	/>
+                <ui:inputSelectOption text="254"	  label="Kenya (+254)"	/>
+                <ui:inputSelectOption text="686"	  label="Kiribati (+686)"	/>
+                <ui:inputSelectOption text="850"	  label="Korea North (+850)"	/>
+                <ui:inputSelectOption text="82"	  label="Korea South (+82)"	/>
+                <ui:inputSelectOption text="965"	  label="Kuwait (+965)"	/>
+                <ui:inputSelectOption text="996"	  label="Kyrgyzstan (+996)"	/>
+                <ui:inputSelectOption text="856"	  label="Laos (+856)"	/>
+                <ui:inputSelectOption text="371"	  label="Latvia (+371)"	/>
+                <ui:inputSelectOption text="961"	  label="Lebanon (+961)"	/>
+                <ui:inputSelectOption text="266"	  label="Lesotho (+266)"	/>
+                <ui:inputSelectOption text="231"	  label="Liberia (+231)"	/>
+                <ui:inputSelectOption text="218"	  label="Libya (+218)"	/>
+                <ui:inputSelectOption text="417"	  label="Liechtenstein (+417)"	/>
+                <ui:inputSelectOption text="370"	  label="Lithuania (+370)"	/>
+                <ui:inputSelectOption text="352"	  label="Luxembourg (+352)"	/>
+                <ui:inputSelectOption text="853"	  label="Macao (+853)"	/>
+                <ui:inputSelectOption text="389"	  label="Macedonia (+389)"	/>
+                <ui:inputSelectOption text="261"	  label="Madagascar (+261)"	/>
+                <ui:inputSelectOption text="265"	  label="Malawi (+265)"	/>
+                <ui:inputSelectOption text="60"	  label="Malaysia (+60)"	/>
+                <ui:inputSelectOption text="960"	  label="Maldives (+960)"	/>
+                <ui:inputSelectOption text="223"	  label="Mali (+223)"	/>
+                <ui:inputSelectOption text="356"	  label="Malta (+356)"	/>
+                <ui:inputSelectOption text="692"	  label="Marshall Islands (+692)"	/>
+                <ui:inputSelectOption text="596"	  label="Martinique (+596)"	/>
+                <ui:inputSelectOption text="222"	  label="Mauritania (+222)"	/>
+                <ui:inputSelectOption text="269"	  label="Mayotte (+269)"	/>
+                <ui:inputSelectOption text="52"	  label="Mexico (+52)"	/>
+                <ui:inputSelectOption text="691"	  label="Micronesia (+691)"	/>
+                <ui:inputSelectOption text="373"	  label="Moldova (+373)"	/>
+                <ui:inputSelectOption text="377"	  label="Monaco (+377)"	/>
+                <ui:inputSelectOption text="976"	  label="Mongolia (+976)"	/>
+                <ui:inputSelectOption text="1664"	  label="Montserrat (+1664)"	/>
+                <ui:inputSelectOption text="212"	  label="Morocco (+212)"	/>
+                <ui:inputSelectOption text="258"	  label="Mozambique (+258)"	/>
+                <ui:inputSelectOption text="95"	  label="Myanmar (+95)"	/>
+                <ui:inputSelectOption text="264"	  label="Namibia (+264)"	/>
+                <ui:inputSelectOption text="674"	  label="Nauru (+674)"	/>
+                <ui:inputSelectOption text="977"	  label="Nepal (+977)"	/>
+                <ui:inputSelectOption text="31"	  label="Netherlands (+31)"	/>
+                <ui:inputSelectOption text="687"	  label="New Caledonia (+687)"	/>
+                <ui:inputSelectOption text="64"	  label="New Zealand (+64)"	/>
+                <ui:inputSelectOption text="505"	  label="Nicaragua (+505)"	/>
+                <ui:inputSelectOption text="227"	  label="Niger (+227)"	/>
+                <ui:inputSelectOption text="234"	  label="Nigeria (+234)"	/>
+                <ui:inputSelectOption text="683"	  label="Niue (+683)"	/>
+                <ui:inputSelectOption text="672"	  label="Norfolk Islands (+672)"	/>
+                <ui:inputSelectOption text="670"	  label="Northern Marianas (+670)"	/>
+                <ui:inputSelectOption text="47"	  label="Norway (+47)"	/>
+                <ui:inputSelectOption text="968"	  label="Oman (+968)"	/>
+                <ui:inputSelectOption text="680"	  label="Palau (+680)"	/>
+                <ui:inputSelectOption text="507"	  label="Panama (+507)"	/>
+                <ui:inputSelectOption text="675"	  label="Papua New Guinea (+675)"	/>
+                <ui:inputSelectOption text="595"	  label="Paraguay (+595)"	/>
+                <ui:inputSelectOption text="51"	  label="Peru (+51)"	/>
+                <ui:inputSelectOption text="63"	  label="Philippines (+63)"	/>
+                <ui:inputSelectOption text="48"	  label="Poland (+48)"	/>
+                <ui:inputSelectOption text="351"	  label="Portugal (+351)"	/>
+                <ui:inputSelectOption text="1787"	  label="Puerto Rico (+1787)"	/>
+                <ui:inputSelectOption text="974"	  label="Qatar (+974)"	/>
+                <ui:inputSelectOption text="262"	  label="Reunion (+262)"	/>
+                <ui:inputSelectOption text="40"	  label="Romania (+40)"	/>
+                <ui:inputSelectOption text="7"	  label="Russia (+7)"	/>
+                <ui:inputSelectOption text="250"	  label="Rwanda (+250)"	/>
+                <ui:inputSelectOption text="378"	  label="San Marino (+378)"	/>
+                <ui:inputSelectOption text="239"	  label="Sao Tome &amp; Principe (+239)"	/>
+                <ui:inputSelectOption text="966"	  label="Saudi Arabia (+966)"	/>
+                <ui:inputSelectOption text="221"	  label="Senegal (+221)"	/>
+                <ui:inputSelectOption text="381"	  label="Serbia (+381)"	/>
+                <ui:inputSelectOption text="248"	  label="Seychelles (+248)"	/>
+                <ui:inputSelectOption text="232"	  label="Sierra Leone (+232)"	/>
+                <ui:inputSelectOption text="65"	  label="Singapore (+65)"	/>
+                <ui:inputSelectOption text="421"	  label="Slovak Republic (+421)"	/>
+                <ui:inputSelectOption text="386"	  label="Slovenia (+386)"	/>
+                <ui:inputSelectOption text="677"	  label="Solomon Islands (+677)"	/>
+                <ui:inputSelectOption text="252"	  label="Somalia (+252)"	/>
+                <ui:inputSelectOption text="27"	  label="South Africa (+27)"	/>
+                <ui:inputSelectOption text="34"	  label="Spain (+34)"	/>
+                <ui:inputSelectOption text="94"	  label="Sri Lanka (+94)"	/>
+                <ui:inputSelectOption text="290"	  label="St. Helena (+290)"	/>
+                <ui:inputSelectOption text="1869"	  label="St. Kitts (+1869)"	/>
+                <ui:inputSelectOption text="1758"	  label="St. Lucia (+1758)"	/>
+                <ui:inputSelectOption text="249"	  label="Sudan (+249)"	/>
+                <ui:inputSelectOption text="597"	  label="Suriname (+597)"	/>
+                <ui:inputSelectOption text="268"	  label="Swaziland (+268)"	/>
+                <ui:inputSelectOption text="46"	  label="Sweden (+46)"	/>
+                <ui:inputSelectOption text="41"	  label="Switzerland (+41)"	/>
+                <ui:inputSelectOption text="963"	  label="Syria (+963)"	/>
+                <ui:inputSelectOption text="886"	  label="Taiwan (+886)"	/>
+                <ui:inputSelectOption text="7"	  label="Tajikstan (+7)"	/>
+                <ui:inputSelectOption text="66"	  label="Thailand (+66)"	/>
+                <ui:inputSelectOption text="228"	  label="Togo (+228)"	/>
+                <ui:inputSelectOption text="676"	  label="Tonga (+676)"	/>
+                <ui:inputSelectOption text="1868"	  label="Trinidad &amp; Tobago (+1868)"	/>
+                <ui:inputSelectOption text="216"	  label="Tunisia (+216)"	/>
+                <ui:inputSelectOption text="90"	  label="Turkey (+90)"	/>
+                <ui:inputSelectOption text="7"	  label="Turkmenistan (+7)"	/>
+                <ui:inputSelectOption text="993"	  label="Turkmenistan (+993)"	/>
+                <ui:inputSelectOption text="1649"	  label="Turks &amp; Caicos Islands (+1649)"	/>
+                <ui:inputSelectOption text="688"	  label="Tuvalu (+688)"	/>
+                <ui:inputSelectOption text="256"	  label="Uganda (+256)"	/>
+                <ui:inputSelectOption text="380"	  label="Ukraine (+380)"	/>
+                <ui:inputSelectOption text="971"	  label="United Arab Emirates (+971)"	/>
+                <ui:inputSelectOption text="598"	  label="Uruguay (+598)"	/>
+                <ui:inputSelectOption text="7"	  label="Uzbekistan (+7)"	/>
+                <ui:inputSelectOption text="678"	  label="Vanuatu (+678)"	/>
+                <ui:inputSelectOption text="379"	  label="Vatican City (+379)"	/>
+                <ui:inputSelectOption text="58"	  label="Venezuela (+58)"	/>
+                <ui:inputSelectOption text="84"	  label="Vietnam (+84)"	/>
+                <ui:inputSelectOption text="84"	  label="Virgin Islands - British (+1284)"	/>
+                <ui:inputSelectOption text="84"	  label="Virgin Islands - US (+1340)"	/>
+                <ui:inputSelectOption text="681"	   label="Wallis &amp; Futuna (+681)"	/>
+                <ui:inputSelectOption text="969"	   label="Yemen (North)"	/>
+                <ui:inputSelectOption text="260"	   label="Yemen (South)"	/>
+            </ui:inputSelect>
+
+
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-align--absolute-center slds-p-around--small">
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:outputText value="Receiver Mobile Number :"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:inputText class="slds-input" required="true" placeholder="Receiver Mobile Number..."
+                          value="{!v.receiverMobileNumber}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-align--absolute-center slds-p-around--small">
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:outputText value="Message  :"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align--absolute-center slds-p-around--small">
+            <ui:inputTextArea class="slds-input" rows="5" required="true"
+                              placeholder="Type Message here maximum 250 characters ..." value="{!v.msgBody}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-align--absolute-center slds-p-around--small">
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-align--absolute-center slds-p-around--small">
+
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align--absolute-center slds-p-around--small">
+            <lightning:button class="slds-button_destructive"    label="Reset" onclick="{!c.resetAll}"/>
+            <lightning:button class="slds-button--success slds-m-left--medium"     label="Send"
+                              onclick="{!c.sendMessageController}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-align--absolute-center slds-p-around--small">
+        </div>
+
+
+    </div>
+</aura:component>

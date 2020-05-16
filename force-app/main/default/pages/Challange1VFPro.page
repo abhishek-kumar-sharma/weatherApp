@@ -1,0 +1,37 @@
+<apex:page controller="Challange1VFController" >
+    <apex:slds >  
+        <apex:pageBlock title="List of Account "> 
+            <apex:form styleClass="slds-form-element"> 
+                <apex:dataTable value="{!accList}" var="acc">
+                    <apex:column >
+                        <apex:facet name="header">Account Name</apex:facet>
+                        <apex:outputText value="{!acc.Name}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Account Type</apex:facet>
+                        <apex:outputText value="{!acc.Type}"/>
+                    </apex:column>  
+                    <apex:column >
+                        <apex:facet name="header">Account Industry</apex:facet>
+                        <apex:outputText value="{!acc.Industry}"/>
+                    </apex:column> 
+                    <apex:column >
+                        <apex:facet name="header">Account Fax</apex:facet>
+                        <apex:outputText value="{!acc.Fax}"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Account Owner Name</apex:facet>
+                        <apex:outputText value="{!acc.Owner.Name}"/>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Option</apex:facet>
+                        <apex:commandButton value="Delete" action="{!deleteHandler}">
+                            <apex:param name="DelRowAccId" value="{!acc.Id}"/>{!acc.Id}
+                        </apex:commandButton> 
+                    </apex:column>
+                </apex:dataTable>
+            </apex:form>
+        </apex:pageBlock>
+    </apex:slds>
+</apex:page>

@@ -1,0 +1,19 @@
+<!--
+ - Created by abhishek on 22/3/18.
+ -->
+
+<apex:page id="SpecchToTextVFPage">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:SpeechToTextApp", function () {
+            $Lightning.createComponent("c:SpeechToTextCmp", {},
+                    "mainDiv", function (cmp) {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>

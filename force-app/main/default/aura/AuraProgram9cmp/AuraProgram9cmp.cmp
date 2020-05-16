@@ -1,0 +1,82 @@
+<!-- Create an aura component that will use to create a new contact with account lookup. -->
+
+
+<aura:component access="global" controller="conAccountlookupcontroller">
+    
+    <!-- attribute to store new contact -->
+    <aura:attribute name="newContact" Type="Contact" default="{'sObjectType':'Contact'}"/>
+    <!-- attribute to show/hide modal-->
+    <aura:attribute name="showModal" Type="Boolean" default="false"/>
+   
+    
+    <!-- attribute to store accounts 
+   <aura:attribute name="accOption" Type="List"/>
+    combo box handler 
+   <aura:handler name="init" value="{!this}" action="{!c.loadAccount}"/>-->
+    
+    <div style="width:30%" >
+        <lightning:input name="LastName"
+                         value="{!v.newContact.LastName}"
+                         placeholder="Enter Last name"
+                         label="Last name"
+                         required="true"
+                         />
+        
+        <!--  <lightning:combobox name="AccountId"
+                           label="Account "
+                           placeholder="Account name"
+                           value="{!v.newContact.AccountId}"
+                           options="{!v.accOption}"
+                           onchange="{!c.comboBoxChange}"
+                           /> -->
+        <!--  look up try -->
+        <c:strike_lookup label="Account"
+                         object="Account"
+                         searchField="Name"
+                         value="{!v.newContact.AccountId}"
+                         placeholder="Select an option"
+                         iconName="standard:account"
+                         subtitleField="Industry"
+                         order="Name"
+                         limit="5"
+                         loadingMessage="Loading Account ..."
+                         errorMessage="Invalid input"
+                         />
+        <br/>
+        
+        <lightning:button label="Create Contact"
+                          onclick="{!c.createContact}"
+                          />
+        
+        <aura:if isTrue="{!v.showModal}">
+            <!--###### MODAL BOX Start From Here ######--> 
+            <div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Part Start From Here ######-->
+                    <div class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModel}">
+                            X
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="header99" class="slds-text-heading--medium">Contact </h2>
+                    </div>
+                    <!--###### MODAL BOX BODY Part Start From Here ######-->
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <p><b>Contact Created
+                            </b>
+                        </p>
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start From Here ######-->
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button--neutral" onclick="{!c.closeModel}" >Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </aura:if>
+        
+    </div>  
+    
+    
+    
+</aura:component>

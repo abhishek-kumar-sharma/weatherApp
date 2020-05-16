@@ -1,0 +1,24 @@
+<!--
+ - Created by ABHISHEK on 09-09-2019.
+ -->
+
+<apex:page id="lookupForAccount">
+    <apex:form id="inputSection">
+        <b>Name :</b>
+        <apex:inputText id="inputtedName"/>
+        <apex:commandLink value="lookup" id="linkToPopUp" onClick="basicPopup('apex/lookupPage'); return false"/>
+    </apex:form>
+
+    <script>
+    function basicPopup(pageNameUrl){
+        var popUpAttributes;
+        popUpAttributes = window.open(pageNameUrl,'popup','height=500,width=700,left=200,top=200');
+    }
+    function pop(actName,id) {
+        console.log('actName',actName);
+        console.log('id',id);
+        document.getElementById('{!$Component.inputSection:inputtedName}').value = actName;
+    }
+
+    </script>
+</apex:page>

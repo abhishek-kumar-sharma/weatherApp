@@ -1,0 +1,65 @@
+<!--
+ - Created by abhishek on 20/3/18.
+ for generating the xml file
+ -->
+
+<apex:page id="SaveAsXMLVFPage" controller="StringToXml">
+
+    <apex:form styleClass="slds-form-element">
+
+    </apex:form>
+    <apex:pageBlock title="Info">
+        <apex:pageBlockSection showHeader="true" collapsible="false">
+            <table>
+                <apex:form styleClass="slds-form-element__control">
+                    <tr>
+                        <th>First Name</th>
+                        <td>
+                            <apex:inputText value="{!fName}" styleClass="slds-input" label="First Name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> Middle Name</th>
+                        <td>
+                            <apex:inputText value="{!mName}" styleClass="slds-input" label="Middle Name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td>
+                            <apex:inputText value="{!lName}" styleClass="slds-input" label="Last Name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Mobile number
+                        </th>
+                        <td>
+                            <apex:inputText value="{!mob}" styleClass="slds-input" label="Mobile number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Age
+                        </th>
+                        <td>
+                            <apex:inputText value="{!age}" styleClass="slds-input" label="Age"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:commandButton value="Download XML" styleClass="slds-button" action="{!generateXML}"/>
+                        </td>
+                    </tr>
+                </apex:form>
+            </table>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection >
+
+                {!returnString}
+
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+
+</apex:page>

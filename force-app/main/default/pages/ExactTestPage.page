@@ -1,0 +1,3 @@
+<apex:page >
+        code -> <b>{!$CurrentPage.parameters.code}</b>
+</apex:page>

@@ -1,0 +1,20 @@
+<!--
+ - Created by abhishek on 9/3/18.
+ -->
+
+<apex:page id="MyCustomLookup" sideBar="false"  showHeader="false" lightningStylesheets="true">
+    <apex:includeLightning />
+
+    <script>
+        $Lightning.use("c:MyCustomLookupApp",function () {
+                $Lightning.createComponent("c:MyCustomLookup",{},"mainDiv",function (cmp) {
+
+                });
+        });
+        
+    </script>
+
+    <div style="width: 100%" id="mainDiv">
+
+    </div>
+</apex:page>

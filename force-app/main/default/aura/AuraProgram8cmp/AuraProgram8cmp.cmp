@@ -1,0 +1,30 @@
+<!-- Create an aura component that will display table of Account details with sorting option with JQ and Apex. -->
+<aura:component access="global" controller="FetchAccountData" >
+    <ltng:require styles="{!$Resource.Aura_All_In_One + '/Aura_All_In_One/css/dataTables.min.css'}"
+                  scripts="{!join(',',
+                           $Resource.Aura_All_In_One + '/Aura_All_In_One/js/jquery.min.js',
+                           $Resource.Aura_All_In_One + '/Aura_All_In_One/js/jquery.js',
+                           $Resource.Aura_All_In_One + '/Aura_All_In_One/js/dataTables.min.js'
+                           
+                           )}"
+                  />
+    
+    
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+        <div class="slds-align-top slds-align_absolute-center">
+            <lightning:button label=" JQ Sort" onclick="{!c.sortData}" class="slds-m-top--medium"/>
+            <lightning:button label=" Apex Sort" onclick="{!c.apexSortData}" class="slds-m-top--medium"/>
+        </div><br/>
+    <div style="width : 100%;">
+        <br/>
+        <lightning:datatable data="{! v.mydata }" 
+                             columns="{! v.mycolumns }"
+                             keyField="id" 
+                             id="sortTable"
+                             onrowselection="{! c.getSelectedName }"/>
+        
+    </div>
+    
+</aura:component>

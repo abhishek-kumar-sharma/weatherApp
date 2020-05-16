@@ -1,0 +1,19 @@
+<apex:page sidebar="false" lightningStylesheets="true" showHeader="false" showChat="false" standardStylesheets="false" >
+    <apex:includeLightning />
+    <script>
+    $Lightning.use("c:SfdcToSfdcApp",function()
+                   {
+                       $Lightning.createComponent("c:SfdcToSfdc",{},
+                                                  "mainDiv",function(cmp)
+                                                  {
+                                                  });
+                   });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+            
+        </div>
+    </apex:slds>
+    
+    
+</apex:page>

@@ -1,0 +1,470 @@
+<!--
+ - Created by ABHISHEK KUMAR SHARM on 08-04-2020.
+ -->
+
+<apex:page id="testPageforsign">
+    <html lang="en" ng-app="kitchensink">
+    <head>
+        <style type="text/css">
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+            display: none !important;
+        }
+
+        ng\:form {
+            display: block;
+        }</style>
+         <title>Free drawing | Fabric.js Demos</title>
+
+        <style>
+            pre {
+                margin-left: 15px !important
+            }
+        </style>
+        <script>
+            (function () {
+                var fabricUrl = '../lib/fabric.js';
+                if (document.location.search.indexOf('load_fabric_from=') > -1) {
+                    var match = document.location.search.match(/load_fabric_from=([^&]*)/);
+                    if (match && match[1]) {
+                        fabricUrl = match[1];
+                    }
+                }
+                document.write('<script src="' + fabricUrl + '"><\/script>');
+            })();
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js"></script>
+<!--        <script src="../js/master.js"></script>-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+        <script id="_carbonads_projs" type="text/javascript"
+                src="https://srv.carbonads.net/ads/CKYIEK7E.json?segment=placement:fabricjscom&amp;callback=_carbonads_go"></script>
+        <style type="text/css">.circle {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            height: 50px;
+            width: 50px;
+            box-shadow: 6px 6px 18px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 100%;
+            background-color: #33C3F0;
+            cursor: pointer;
+            z-index: 99999;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .popup {
+            position: absolute;
+            background-color: white;
+            border-radius: 4px;
+            padding: 10px 20px;
+            right: 70px;
+            top: 50%;
+            color: #33C3F0;
+            box-shadow: 6px 6px 18px 0 rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transform: translate(0, -50%);
+            border: 1px solid #f3f3f3;
+        }
+
+        .popup:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(100%, -50%);
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 7px solid white;
+
+        }
+
+        .popup-visibility-show {
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.35s ease;
+        }
+
+        .popup-visibility-hide {
+            transition: all 0.35s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .visible {
+            visibility: visible;
+        }
+
+        .x-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 20px;
+            background-color: white;
+
+        }
+
+        .y-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 2px;
+            background-color: white;
+        }
+        </style>
+        <script charset="utf-8"
+                src="https://platform.twitter.com/js/button.93a0c25c2d2f3081c705c98c2d9dec0e.js"></script>
+    </head>
+    <body data-gr-c-s-loaded="true">
+    <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        (function () {
+
+            if (document.location.hostname === 'localhost') {
+                var links = document.getElementById('header').getElementsByTagName('a');
+                for (var i = 0, len = links.length; i < len; i++) {
+                    // very retarted fix but fuck it
+                    links[i].href = links[i].href.replace('fabricjs.com', 'localhost:4000');
+                }
+            } else {
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//platform.twitter.com/widgets.js";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, "script", "twitter-wjs");
+            }
+        })();
+        (function () {
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    var ads = document.getElementById('carbonads');
+                    var ads2 = document.getElementById('carbonads-container');
+                    var style = window.getComputedStyle(ads2);
+                    if (!ads || style.display === 'none') {
+                        var nag = document.getElementById('nag');
+                        if (!nag) {
+                            var newDiv = document.createElement('div');
+                            newDiv.id = 'gentle-reminder';
+                            newDiv.className = 'reminder';
+                            newDiv.innerHTML = 'Do you like fabricJS?<br />If you want it continue running and you do not mind tech related ads, please allow this website in your adblocker.<br /><br />❤️ Thank You!';
+                            document.body.appendChild(newDiv)
+                        }
+                    }
+                }, 4000);
+            });
+        })();
+    </script>
+
+
+    <div id="bd-wrapper" ng-controller="CanvasControls">
+        <h2><span>Fabric.js demos</span> · Free drawing</h2>
+
+        <style>
+            #drawing-mode {
+                margin-bottom: 10px;
+                vertical-align: top;
+            }
+
+            #drawing-mode-options {
+                display: inline-block;
+                vertical-align: top;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                background: #f5f2f0;
+                padding: 10px;
+            }
+
+            label {
+                display: inline-block;
+                width: 130px;
+            }
+
+            .info {
+                display: inline-block;
+                width: 25px;
+                background: #ffc;
+            }
+
+            #bd-wrapper {
+                min-width: 1500px;
+            }
+        </style>
+
+        <div class="canvas-container" style="width: 500px; height: 500px; position: relative; user-select: none;">
+            <canvas id="c" width="500" height="500"
+                    style="border: 1px solid rgb(170, 170, 170); position: absolute; width: 500px; height: 500px; left: 0px; top: 0px; touch-action: none; user-select: none;"
+                    class="lower-canvas"></canvas>
+            <canvas class="upper-canvas " width="500" height="500"
+                    style="border: 1px solid rgb(170, 170, 170); position: absolute; width: 500px; height: 500px; left: 0px; top: 0px; touch-action: none; user-select: none; cursor: crosshair;"></canvas>
+        </div>
+
+        <div style="display: inline-block; margin-left: 10px">
+            <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button>
+            <br />
+            <button id="clear-canvas" class="btn btn-info">Clear</button>
+            <br />
+
+            <div id="drawing-mode-options">
+                <label for="drawing-mode-selector">Mode:</label>
+                <select id="drawing-mode-selector">
+                    <option>Pencil</option>
+                    <option>Circle</option>
+                    <option>Spray</option>
+                    <option>Pattern</option>
+
+                    <option>hline</option>
+                    <option>vline</option>
+                    <option>square</option>
+                    <option>diamond</option>
+                    <option>texture</option>
+                </select><br />
+
+                <label for="drawing-line-width">Line width:</label>
+                <span class="info">4</span>
+                <input type="range" value="30" min="0" max="150" id="drawing-line-width" /><br />
+
+                <label for="drawing-color">Line color:</label>
+                <input type="color" value="#005E7A" id="drawing-color" /><br />
+
+                <label for="drawing-shadow-color">Shadow color:</label>
+                <input type="color" value="#005E7A" id="drawing-shadow-color" /><br />
+
+                <label for="drawing-shadow-width">Shadow width:</label>
+                <span class="info">0</span>
+                <input type="range" value="0" min="0" max="50" id="drawing-shadow-width" /><br />
+
+                <label for="drawing-shadow-offset">Shadow offset:</label>
+                <span class="info">0</span>
+                <input type="range" value="0" min="0" max="50"
+                                                  id="drawing-shadow-offset" /><br />
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+        <script id="main">(function () {
+            var $ = function (id) {
+                return document.getElementById(id)
+            };
+
+            var canvas = this.__canvas = new fabric.Canvas('c', {
+                isDrawingMode: true
+            });
+
+            fabric.Object.prototype.transparentCorners = false;
+
+            var drawingModeEl = $('drawing-mode'),
+                    drawingOptionsEl = $('drawing-mode-options'),
+                    drawingColorEl = $('drawing-color'),
+                    drawingShadowColorEl = $('drawing-shadow-color'),
+                    drawingLineWidthEl = $('drawing-line-width'),
+                    drawingShadowWidth = $('drawing-shadow-width'),
+                    drawingShadowOffset = $('drawing-shadow-offset'),
+                    clearEl = $('clear-canvas');
+
+            clearEl.onclick = function () {
+                canvas.clear()
+            };
+
+            drawingModeEl.onclick = function () {
+                canvas.isDrawingMode = !canvas.isDrawingMode;
+                if (canvas.isDrawingMode) {
+                    drawingModeEl.innerHTML = 'Cancel drawing mode';
+                    drawingOptionsEl.style.display = '';
+                } else {
+                    drawingModeEl.innerHTML = 'Enter drawing mode';
+                    drawingOptionsEl.style.display = 'none';
+                }
+            };
+
+            if (fabric.PatternBrush) {
+                var vLinePatternBrush = new fabric.PatternBrush(canvas);
+                vLinePatternBrush.getPatternSrc = function () {
+
+                    var patternCanvas = fabric.document.createElement('canvas');
+                    patternCanvas.width = patternCanvas.height = 10;
+                    var ctx = patternCanvas.getContext('2d');
+
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 5;
+                    ctx.beginPath();
+                    ctx.moveTo(0, 5);
+                    ctx.lineTo(10, 5);
+                    ctx.closePath();
+                    ctx.stroke();
+
+                    return patternCanvas;
+                };
+
+                var hLinePatternBrush = new fabric.PatternBrush(canvas);
+                hLinePatternBrush.getPatternSrc = function () {
+
+                    var patternCanvas = fabric.document.createElement('canvas');
+                    patternCanvas.width = patternCanvas.height = 10;
+                    var ctx = patternCanvas.getContext('2d');
+
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 5;
+                    ctx.beginPath();
+                    ctx.moveTo(5, 0);
+                    ctx.lineTo(5, 10);
+                    ctx.closePath();
+                    ctx.stroke();
+
+                    return patternCanvas;
+                };
+
+                var squarePatternBrush = new fabric.PatternBrush(canvas);
+                squarePatternBrush.getPatternSrc = function () {
+
+                    var squareWidth = 10, squareDistance = 2;
+
+                    var patternCanvas = fabric.document.createElement('canvas');
+                    patternCanvas.width = patternCanvas.height = squareWidth + squareDistance;
+                    var ctx = patternCanvas.getContext('2d');
+
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(0, 0, squareWidth, squareWidth);
+
+                    return patternCanvas;
+                };
+
+                var diamondPatternBrush = new fabric.PatternBrush(canvas);
+                diamondPatternBrush.getPatternSrc = function () {
+
+                    var squareWidth = 10, squareDistance = 5;
+                    var patternCanvas = fabric.document.createElement('canvas');
+                    var rect = new fabric.Rect({
+                        width: squareWidth,
+                        height: squareWidth,
+                        angle: 45,
+                        fill: this.color
+                    });
+
+                    var canvasWidth = rect.getBoundingRect().width;
+
+                    patternCanvas.width = patternCanvas.height = canvasWidth + squareDistance;
+                    rect.set({left: canvasWidth / 2, top: canvasWidth / 2});
+
+                    var ctx = patternCanvas.getContext('2d');
+                    rect.render(ctx);
+
+                    return patternCanvas;
+                };
+
+                var img = new Image();
+                img.src = '../assets/honey_im_subtle.png';
+
+                var texturePatternBrush = new fabric.PatternBrush(canvas);
+                texturePatternBrush.source = img;
+            }
+
+            $('drawing-mode-selector').onchange = function () {
+
+                if (this.value === 'hline') {
+                    canvas.freeDrawingBrush = vLinePatternBrush;
+                } else if (this.value === 'vline') {
+                    canvas.freeDrawingBrush = hLinePatternBrush;
+                } else if (this.value === 'square') {
+                    canvas.freeDrawingBrush = squarePatternBrush;
+                } else if (this.value === 'diamond') {
+                    canvas.freeDrawingBrush = diamondPatternBrush;
+                } else if (this.value === 'texture') {
+                    canvas.freeDrawingBrush = texturePatternBrush;
+                } else {
+                    canvas.freeDrawingBrush = new fabric[this.value + 'Brush'](canvas);
+                }
+
+                if (canvas.freeDrawingBrush) {
+                    canvas.freeDrawingBrush.color = drawingColorEl.value;
+                    canvas.freeDrawingBrush.width = parseInt(drawingLineWidthEl.value, 10) || 1;
+                    canvas.freeDrawingBrush.shadow = new fabric.Shadow({
+                        blur: parseInt(drawingShadowWidth.value, 10) || 0,
+                        offsetX: 0,
+                        offsetY: 0,
+                        affectStroke: true,
+                        color: drawingShadowColorEl.value,
+                    });
+                }
+            };
+
+            drawingColorEl.onchange = function () {
+                canvas.freeDrawingBrush.color = this.value;
+            };
+            drawingShadowColorEl.onchange = function () {
+                canvas.freeDrawingBrush.shadow.color = this.value;
+            };
+            drawingLineWidthEl.onchange = function () {
+                canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
+                this.previousSibling.innerHTML = this.value;
+            };
+            drawingShadowWidth.onchange = function () {
+                canvas.freeDrawingBrush.shadow.blur = parseInt(this.value, 10) || 0;
+                this.previousSibling.innerHTML = this.value;
+            };
+            drawingShadowOffset.onchange = function () {
+                canvas.freeDrawingBrush.shadow.offsetX = parseInt(this.value, 10) || 0;
+                canvas.freeDrawingBrush.shadow.offsetY = parseInt(this.value, 10) || 0;
+                this.previousSibling.innerHTML = this.value;
+            };
+
+            if (canvas.freeDrawingBrush) {
+                canvas.freeDrawingBrush.color = drawingColorEl.value;
+                canvas.freeDrawingBrush.width = parseInt(drawingLineWidthEl.value, 10) || 1;
+                canvas.freeDrawingBrush.shadow = new fabric.Shadow({
+                    blur: parseInt(drawingShadowWidth.value, 10) || 0,
+                    offsetX: 0,
+                    offsetY: 0,
+                    affectStroke: true,
+                    color: drawingShadowColorEl.value,
+                });
+            }
+        })();
+        </script>
+
+    <script>
+        (function () {
+            var mainScriptEl = document.getElementById('main');
+            if (!mainScriptEl) return;
+            var preEl = document.createElement('pre');
+            var codeEl = document.createElement('code');
+            codeEl.innerHTML = mainScriptEl.innerHTML;
+            codeEl.className = 'language-javascript';
+            preEl.appendChild(codeEl);
+            document.getElementById('bd-wrapper').appendChild(preEl);
+        })();
+    </script>
+
+    <script>
+        (function () {
+            window.addEventListener('load', function () {
+                var canvas = this.__canvas || this.canvas,
+                        canvases = this.__canvases || this.canvases;
+
+                canvas && canvas.calcOffset && canvas.calcOffset();
+
+                if (canvases && canvases.length) {
+                    for (var i = 0, len = canvases.length; i < len; i++) {
+                        canvases[i].calcOffset();
+                    }
+                }
+            });
+        })();
+    </script>
+    </body>
+    </html>
+</apex:page>

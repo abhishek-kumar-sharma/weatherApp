@@ -1,0 +1,208 @@
+<aura:component description="WeatherAPICmp" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="WeatherAPIController">
+    
+    
+    
+    <!-- Attribute to store record id -->
+    <aura:attribute name="recordId" type="String"/>
+    <!-- Attribute to store country name -->
+    <aura:attribute name="errMsg" type="String" default="Unable To Get Data API Not Responding"/>
+    <!-- Attribute to store city name -->
+    <aura:attribute name="cityName" type="String" default="Ghaziabad" />
+    <!-- Attribute to show/hide modal -->
+    <aura:attribute name="showPrompt" type="Boolean" default="false"/>
+    <!-- Attribute to save response from weather api -->
+    <aura:attribute name="weatherResponse" type="Object"/>
+    <!-- Attribute to show hide shorter view -->
+    <aura:attribute type="Boolean" default="false" name="shorterView"/>
+    <!-- Attribute to show hide detail view -->
+    <aura:attribute type="Boolean" default="false" name="detailView"/>
+    <!-- Attribute to store sunrise-->
+    <aura:attribute name="sunrise" type="String"/>
+    <!-- Attribute to store sunset-->
+    <aura:attribute name="sunset" type="String"/>
+    <aura:attribute name="currentTime" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <!-- Header -->
+    <div class="slds-page-header slds-box_border" style="border-radius: 10px">
+        <div class="slds-media slds-p-around--small">
+            <div class="slds-media__figure">
+                <lightning:icon iconName="action:web_link" class="slds-icon_container"/>
+            </div>
+            <div class="slds-media__body">
+                <h1 class="slds-page-header__title slds-truncate slds-align-middle" title="Weather Report">Weather
+                    Report</h1>
+                <p class="slds-text-body_small slds-line-height_reset">Abhishek Kumar Sharma • {!v.currentTime}</p>
+                
+            </div>
+        </div>
+    </div>
+    <!-- input box for city and country -->
+    <div id="container"  style="background: rgb(243, 242, 242); border-radius: 10px; margin-top: 1.7%;">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1  slds-large-size_2-of-12 slds-p-around--small"></div>
+            <div class="slds-col slds-size_1-of-1  slds-large-size_8-of-12 slds-p-around--small">
+                <ui:inputText aura:id="cityName" label="Enter Your City" value="{!v.cityName}" class="slds-input"
+                              placeholder="Enter City Name"/>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-p-around--small"></div>
+        </div>
+        
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col" style="margin-bottom: 1.7%">
+                <lightning:button variant="destructive" onclick="{!c.resetAll}" label="   Reset   "
+                                  iconName="action:reset_password"
+                                  tabindex="2"/>
+                <lightning:button variant="brand" onclick="{!c.getWhetherController}" label="Get Whether"
+                                  iconName="action:web_link"
+                                  tabindex="1"/>
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- Show modal when country or city is null-->
+    <aura:if isTrue="{!v.shorterView}">
+        <div class="slds-grid slds-wrap slds-p-around--small slds-box_border" style="background: rgb(243, 242, 242); border-radius: 10px; margin-top: 1.7%">
+            <div class="slds-col slds-size_1-of-1  slds-large-size_2-of-12 slds-p-around--small"></div>
+            <div class="slds-col slds-size_1-of-1  slds-large-size_8-of-12 slds-p-around--small ">
+                <table class="slds-table" style="background: rgb(243, 242, 242);">
+                    <tr>
+                        <td width="50%">CITY NAME</td>
+                        <td width="50%">{!v.weatherResponse.name}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">COUNTRY NAME</td>
+                        <td width="50%">{!v.weatherResponse.sys.country}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">COORDINATE (LONGITUDE)</td>
+                        <td width="50%">{!v.weatherResponse.coord.lon}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">COORDINATE (LATITUDE)</td>
+                        <td width="50%">{!v.weatherResponse.coord.lat}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">WEATHER</td>
+                        <td width="50%">
+                            <aura:iteration items="{!v.weatherResponse.weather}" var="weth">
+                                {!weth.main} - ({!weth.description})
+                            </aura:iteration>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Show Detail Weather</td>
+                        <td width="50%">
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col slds-text-align--left">
+                                    <span class="slds-text-title_caps">
+                                        <label class="slds-checkbox_toggle">
+                                            <span class="slds-form-element__label slds-m-bottom_none"></span>
+                                            <ui:inputCheckbox aura:id="showHideWeather" value="false" updateOn="change,click"
+                                                              change="{!c.getWeatherData}"/>
+                                            <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-checkbox_on"></span>
+                                                <span class="slds-checkbox_off"></span>
+                                            </span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12 slds-p-around--small"></div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.showPrompt}">
+        
+        <div>
+            <section role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id"
+                     aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt"
+                     aria-modal="true">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__content slds-p-around_medium " id="prompt-message-wrapper">
+                        <p>{!v.errMsg}</p>
+                    </div>
+                    <footer class="slds-modal__footer ">
+                        <lightning:button class="slds-button slds-button_destructive" label="Close"
+                                          onclick="{!c.hidePrompt}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    
+    <!-- Result Data for Detail view -->
+    <aura:if isTrue="{!v.detailView}">
+        <div class="slds-grid slds-wrap slds-p-around--small  slds-box_border" style="background: rgb(243, 242, 242); border-radius: 10px; margin-top: 1.7%">
+            <div class="slds-col slds-size_1-of-1  slds-large-size_2-of-12 slds-p-around--small"></div>
+            <div class="slds-col slds-size_1-of-1  slds-large-size_8-of-12 slds-p-around--small">
+                <table class="slds-table" style="background: rgb(243, 242, 242);">
+                    <tr>
+                        <td width="50%">Temp </td>
+                        <td width="50%">{!v.weatherResponse.main.temp} Fahrenheit</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Temp min </td>
+                        <td width="50%">{!v.weatherResponse.main.temp_min} Fahrenheit</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Temp max </td>
+                        <td width="50%">{!v.weatherResponse.main.temp_max} Fahrenheit</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Pressure </td>
+                        <td width="50%">{!v.weatherResponse.main.pressure} hPa</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Humidity </td>
+                        <td width="50%">{!v.weatherResponse.main.humidity} %</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Sea Level </td>
+                        <td width="50%">{!v.weatherResponse.main.sea_level} hPa</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Ground Level </td>
+                        <td width="50%">{!v.weatherResponse.main.grnd_level} hPa</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">wind Speed </td>
+                        <td width="50%">{!v.weatherResponse.wind.speed} miles/hour</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">wind Degree </td>
+                        <td width="50%">{!v.weatherResponse.wind.deg}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">wind Gust </td>
+                        <td width="50%">{!v.weatherResponse.wind.gust}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">sunrise </td>
+                        <td width="50%">{!v.sunrise}</td>
+                    </tr>
+                    <tr>
+                        <td width="50%">sunset </td>
+                        <td width="50%">{!v.sunset} </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">clouds </td>
+                        <td width="50%">{!v.weatherResponse.clouds.all}  %Cloudiness</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </aura:if>
+    
+</aura:component>

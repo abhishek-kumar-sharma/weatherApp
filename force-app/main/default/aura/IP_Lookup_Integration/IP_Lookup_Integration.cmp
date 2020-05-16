@@ -1,0 +1,68 @@
+<!--
+ - Created by ABHISHEK on 05-01-2019.
+ -->
+<aura:component description="IP_Lookup_Integration component to handle UI of ip data" controller="IPCalloutIntegration">
+
+    <aura:attribute name="InputtedIP" type="String"/>
+    <aura:attribute name="IpVersions" type="List" default="[
+    {'label': 'IPv4', 'value': 'IPv4'},
+    {'label': 'IPv6', 'value': 'IPv6'}
+    ]"/>
+    <aura:attribute name="InputtedIPVersion" type="String" default="IPv4" description="It may be IPv4 or IPv6"/>
+
+    <div>
+        <div id="main-Container">
+            <!-- Header layout start -->
+            <lightning:layout multipleRows="false">
+                <lightning:layoutItem size="12">
+                    <div class="slds-page-header" style="background-color: rgb(210, 210, 201)!important;">
+                        <h1 class="slds-page-header__name slds-align--absolute-center">IP LOOKUP</h1>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            <!-- Header layout end -->
+
+            <!-- Input Section start -->
+            <div>
+                <lightning:layout>
+                    <lightning:layoutItem size="3" padding="around-small" flexibility="auto">
+
+                        <lightning:radioGroup name="IpVersions" label="IP Version Type :"
+                                              options="{!v.IpVersions}"
+                                              value="{!v.InputtedIPVersion}"
+                                              type="button"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="6" padding="around-small" flexibility="auto">
+                        <label for="ipInput">IP Address :
+                            <lightning:helptext iconVariant="inverse" iconName="utility:info"
+                                    content="To get your IP detail click lookup button without filling any value"/>
+                        </label>
+                        <lightning:input label="IP Address :" variant="label-hidden" placeholder="IP Address :"
+                                         type="text" value="{!v.InputtedIP}"
+                                         title="Enter IP Address with .(dot) symbol"
+                                         messageWhenPatternMismatch="Please enter valid IP in 000.111.222.33 format">
+                        </lightning:input>
+
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="3" padding="around-small" flexibility="auto"/>
+                </lightning:layout>
+                <lightning:layout>
+                    <lightning:layoutItem size="4" padding="around-small" flexibility="auto"/>
+                    <lightning:layoutItem size="4" padding="around-small" flexibility="auto">
+                        <lightning:button label="Lookup" iconPosition="right" iconName="utility:search"
+                                          class="slds-align--absolute-center"
+                                          variant="brand" onclick="{!c.getIPDetails}"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem size="4" padding="around-small" flexibility="auto"/>
+                </lightning:layout>
+            </div>
+            <!-- Input Section end -->
+
+
+            <!-- Result panel start -->
+            <!-- Result panel end -->
+
+        </div>
+    </div>
+
+</aura:component>

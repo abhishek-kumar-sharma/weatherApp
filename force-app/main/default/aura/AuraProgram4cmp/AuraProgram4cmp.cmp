@@ -1,0 +1,210 @@
+<aura:component controller="AuraProgram4Controller" >
+    
+    <ltng:require scripts="{!join(',',
+                           $Resource.Aura_All_In_One + '/Aura_All_In_One/js/jquery.min.js'
+                           
+                           )}" />
+    
+    <!-- This attribute Contains Object List -->     
+    <aura:attribute name="sObjectList" Type="Schema.ObjectPermissions"/>
+    
+    <!--For Selected Object Name and getting fields of object -->  
+    <aura:attribute name="selectedObjectName" Type="String" default=""/>
+    <aura:handler name="change" value="{!v.selectedObjectName}" action="{!c.getSelectedObject}" />
+    <!-- for selected field data type and api name -->
+    <aura:handler name="change" value="{!v.selectedFieldName}" action="{!c.getAPIName}"/>
+    
+    <!-- for showing the second list of fields (selected object field are assigned to this attribute)-->
+    <aura:attribute name="fieldList" Type="String" default=""/>
+    
+    
+    <!-- Dual List Attribute code -->  
+    <aura:attribute name="optionList" Type="String" description="New value from fieldList to show in dual box" default=""/>  
+    <aura:attribute name="optionValue" Type="String" description="New value for dual box" default=""/>  
+    <aura:attribute name="ifBlock" Type="Boolean" default="false"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    
+    <!-- Query attribute to store query -->
+    <aura:attribute name="query" Type="String" default=""/>
+    <!-- attribute to show/hide query box -->
+    <aura:attribute name="showQueryBox" Type="Boolean" default="false"/>
+    
+    
+    
+    <!-- attribute to store splitted data for table header -->
+    <aura:attribute name="tableHeader" Type="List"/>
+    <!-- attribute to show/hide response table -->
+    <aura:attribute name="showResponseTable" Type="Boolean" default="false"/>
+    <!-- attribute to store query response -->
+    <aura:attribute name="rec_Query_Response" Type="Object" />
+    
+    <!-- attribute show/hide condition section -->
+    <aura:attribute name="showConditionSec" Type="Boolean" default="false"/>
+    <!-- attribute to store the selected filter field -->
+    <aura:attribute name="selectedFilterField" Type="String" default=""/>
+    <!-- selectedFilterField handler to get the selected filter field -->
+    <aura:handler name="change" value="{!v.selectedFilterField}" action="{!c.getFilterFieldFirst}"/>
+    <!-- attribute to store api name of filter field -->
+    <aura:attribute name="APIAttribDataType" Type="String"/>
+    <!-- attribute to store data type of filter field -->
+    <aura:attribute name="APIAttrib" Type="String"/>
+    <!-- attribute to store symbol option w.r.t to  first field data type -->
+    <aura:attribute name="symbolFilterFirst" Type="String" default=""/>
+    <!-- attribute to show first filter symbols depends upon data type of first selected field in filter section -->
+    <aura:attribute name="symbolsFirst" Type="String" />
+    <!-- attribute to store previously fetched fields in dual list -->
+    <aura:attribute name="prevFetchField" Type="String"/>
+    
+    <!-- attribute  to handle combo box-->
+    <aura:attribute name="comboBoxOption" Type="List" default="[]"/>
+    <!-- attribute to show combo box div -->
+    <aura:attribute name="showComboBox" Type="Boolean" default="false"/>
+    <!-- attribute to show input box -->
+    <aura:attribute name="showInputBox" Type="Boolean" default="false"/>
+    <!-- attribute to store required option in dual list -->
+    <aura:attribute name="requiredOptions" type="String" default="[]"/>
+    <!-- Attribute to show hide date field-->
+    <aura:attribute name="showDateInpBox" type="Boolean" default="false"/>
+    <!-- Attribute to show / hide date time field -->
+    <aura:attribute name="showDateTimeInpBox" type="Boolean" default="false"/>
+    <!-- Attribute to store date -->
+    <aura:attribute name="filterDate" type="date" />
+    <!-- Attribute to store date time -->
+    <aura:attribute name="filterDateTime" type="DateTime" />
+    
+    
+    
+    
+    <!-- main div header -->
+    <div style="width:100%;" >
+        
+        <div style="float:left; width:50%;" >
+            <br/>
+            <div style="width:70%;">
+                
+                <div>
+                    <lightning:button label="Fetch Objects" onclick="{!c.fetchObjectHandler}"/>  
+                    <lightning:button label="Clear" onclick="{!c.clearQueryData}"/>
+                    <br/><br/>
+                </div>
+                
+                <div style="width:70%;">
+                    <!-- showing the object-->
+                    <lightning:select name="Select Object" label="Select Object here..." value="{!v.selectedObjectName}" class="">
+                        <option >Select Object here ...</option>
+                        <aura:iteration items="{!v.sObjectList}" var="objectName">
+                            <option value ="{!objectName}" class="">{!objectName}</option>
+                        </aura:iteration>
+                    </lightning:select>    
+                </div>
+                <br/><br/>
+                
+                <div style="float:left; width:50%;">
+                    <aura:if isTrue="{!v.ifBlock}">
+                        <span>
+                            <lightning:dualListbox class=""
+                                                   name="Select Option" label="Select Fields Here"
+                                                   sourceLabel="Available Option"
+                                                   selectedLabel="Selected Fields Name"
+                                                   options="{!v.optionList}"
+                                                   value="{!v.optionValue}"
+                                                   onchange="{!c.handleChange}"
+                                                   />
+                        </span>
+                    </aura:if>
+                </div>
+                
+            </div>
+        </div><!-- First half div closed -->
+        
+        <!-- second half div start --> 
+        <div style="float:left; width:50%;" class="slds-form-element"> <!-- second half div start -->            
+            
+            <!-- query display block -->
+            <aura:if isTrue="{!v.showQueryBox}">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="textarea-id-01">Query Box </label>
+                    <div class="slds-form-element__control">
+                        <textarea id="textarea-id-01" class="slds-textarea" value="{!v.query}" placeholder="Your Query"></textarea>
+                    </div>
+                </div>
+            </aura:if>
+            
+            <!-- filter button-->
+            <div >
+                <aura:if isTrue="{!v.showQueryBox}">
+                    <lightning:button label="Add Result Filter :" onclick="{!c.handleFilterButton}" class="slds-button_brand test"/>
+                    <aura:if isTrue="{!v.showConditionSec}">
+                        <div style="width:30%;">
+                            <lightning:select name="filterField" label="Select Field To Filter" value="{!v.selectedFilterField}" onchange="{!c.getFilterFieldFirst}">
+                                <option>----NONE----</option>
+                                <aura:iteration items="{!v.fieldList}" var="fields">
+                                    <option value="{!fields}">{!fields}</option>                                
+                                </aura:iteration>
+                            </lightning:select>
+                            Data Type : {!v.APIAttribDataType}<br/>
+                            API Name : {!v.APIAttrib}
+                            <!-- symbol picklist -->
+                            <lightning:select name="symbolField" label="Select Symbol" value="{!v.symbolFilterFirst}" required="true">
+                                <option> </option>
+                                <aura:iteration items="{!v.symbolsFirst}" var="sym">
+                                    <option value="{!sym.value}">{!sym.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+
+                            <!-- date type input for date  data type -->
+                            <aura:if isTrue="{!v.showDateInpBox}">
+                                <ui:inputDate aura:id="filterByDate" label="Select Date here ..." value="{!v.filterDate}" displayDatePicker="true"/>
+                            </aura:if>
+
+                            <!-- datatime type input for datatime data type -->
+                            <aura:if isTrue="{!v.showDateTimeInpBox}">
+                                <ui:inputDateTime aura:id="filterByDateTime" label="Select Date Time here ..." class="field" value="{!v.filterDateTime}" displayDatePicker="true" />
+                            </aura:if>
+                            <!-- input box for common type -->
+                            <aura:if isTrue="{!v.showInputBox}">
+                                <lightning:input aura:id="firstFilterInp" Type="text" value="" label="Enter Keyword Here ..." name="firstFilterInp" placeholder="Enter Text here" required="true" />
+                            </aura:if>
+                            
+                             <!--  combo box for reference type -->
+                            <aura:if isTrue="{!v.showComboBox}">
+                                <lightning:combobox aura:id="comboBox" label="Select Reference ..." name="Select Reference" placeholder="Select the Reference here..."
+                                                    onchange="{!c.handleComboBox}"
+                                                    options="{!v.comboBoxOption}"/>
+                            </aura:if> 
+                             <lightning:button label="Apply Filter" onclick="{!c.applyFilterButtonHandler}"/>
+                            
+
+                            
+                            
+                        </div>
+                        
+                    </aura:if>
+                    
+                </aura:if>
+            </div>
+            
+            
+            
+            
+            
+            
+        </div><!-- second half div closed -->
+        
+        
+    </div>  <!-- main div closed -->  
+    <div style="width:100%; float:left;">
+        <div  class="test" style="width:100%; float:left;">
+            <aura:if isTrue="{!v.showResponseTable}">
+                <div>
+                    <lightning:datatable data="{!v.rec_Query_Response}" 
+                                         columns="{!v.tableHeader}" 
+                                         keyField="id"
+                                         onrowselection="{!c.getSelectedName }"/>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+    
+    
+</aura:component>

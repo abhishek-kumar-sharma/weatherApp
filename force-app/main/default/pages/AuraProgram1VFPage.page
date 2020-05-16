@@ -1,0 +1,28 @@
+<!--AuraProgra1VFPage -->
+<apex:page sidebar="false" showHeader="false" lightningStylesheets="true">
+    <apex:includeLightning />
+    <script>
+    $Lightning.use("c:AuraProgram1App",function()
+                   {
+                       $Lightning.createComponent("c:AuraProgram1",
+                                                  {},
+                                                  "myDiv",
+                                                  function(cmp)
+                                                  {
+                                                  });
+                   });
+    </script>
+    <apex:slds >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <div id="myDiv">
+                    
+                </div>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        
+    </apex:slds>
+    
+    
+</apex:page>

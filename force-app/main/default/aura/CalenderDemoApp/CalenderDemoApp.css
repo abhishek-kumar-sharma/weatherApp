@@ -1,0 +1,15 @@
+/**
+ * Created by CA on 6/8/2018.
+ */
+.THIS {
+}
+
+.THIS .tabWidth {
+    width: 50% !important;
+    text-align: center;
+    background: ghostwhite;
+}
+.THIS .slds-tabs--default__link{
+    font-weight: 400;
+    color: white;
+}

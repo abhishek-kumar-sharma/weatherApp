@@ -1,0 +1,19 @@
+<!--
+ - Created by ABHISHEK on 11/20/2018.
+ -->
+
+<aura:component description="usingExpressionChild1Cmp">
+    <aura:attribute name="parentValue" type="String" />
+    <aura:attribute name="childOneValue" type="String" />
+    <aura:attribute name="childTwoValue" type="String" />
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    <center>hello child 1 component</center>
+    Parent Value : {!v.parentValue}<br/>
+    Child One Value : {!v.childOneValue}<br />
+    Child Two Value : {!v.childTwoValue}<br />
+    <center>
+        <lightning:button label="Load Value in child 1" variant="brand" onclick="{!c.loadValueChildOne}"/>
+    </center>
+    <br />
+
+</aura:component>

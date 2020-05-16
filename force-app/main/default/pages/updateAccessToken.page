@@ -1,0 +1,14 @@
+<apex:page controller="updateAccessTokencontroller" showHeader="false" sidebar="false" cache="false" standardStylesheets="true"
+           lightningStylesheets="true" title="Tracxn Access Token" showChat="false">
+    <apex:form >
+        <apex:pageBlock title="Access Token Information">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!saveRecord}" value="Save" styleClass="slds-button slds-button_brand"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection collapsible="false" columns="2">
+                <apex:inputField value="{!accessToken.Name}"/>
+                <apex:inputField value="{!accessToken.Access_Token__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

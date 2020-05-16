@@ -1,0 +1,20 @@
+<!--
+ - Created by ABHISHEK on 26-04-2019.
+ -->
+
+<apex:page id="userGetMedia" sideBar="false" showChat="false" applyHtmlTag="true" standardStylesheets="true"
+           showHeader="false">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("ECSV:userGetMediaApp",function () {
+            $Lightning.createComponent("ECSV:userGetMediaCmp",
+                {},
+                "holderDiv",
+                function (cmp) {
+        });
+    });
+    </script>
+    <apex:slds >
+        <div id="holderDiv"></div>
+    </apex:slds>
+</apex:page>

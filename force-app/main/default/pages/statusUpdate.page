@@ -1,0 +1,18 @@
+<!--
+ - Created by ABHISHEK on 23-07-2019.
+ -->
+<apex:page id="statusUpdate" cache="false" standardStylesheets="false" lightningStylesheets="true" showChat="false" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:statusUpdateApp", function () {
+            $Lightning.createComponent("c:statusUpdateCmp", {},
+                    "mainDiv", function (cmp) {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>

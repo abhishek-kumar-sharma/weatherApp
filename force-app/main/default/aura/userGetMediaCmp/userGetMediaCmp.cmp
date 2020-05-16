@@ -1,0 +1,34 @@
+<aura:component
+        implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+        access="global">
+    <ltng:require scripts="{!$Resource.fabric}" afterScriptsLoaded="{!c.afterScriptLoaded}"/>
+    <lightning:card title="">
+        <lightning:layout horizontalAlign="spread">
+            <lightning:layoutItem padding="around-small">
+                <h1>
+                    Saving the captured image to attachment
+                </h1>
+                <div class="camera">
+                    <video id="video">Video stream not available.</video>
+                    <button id="startbutton" onclick="{!c.doInit}">CAPTURE</button>
+                    <button id="clearbutton" onclick="{!c.doInit}">CLEAR</button>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small">
+                <canvas id="canvas">
+                </canvas>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small">
+                <h1>
+                    Captures Image
+                </h1>
+                <div class="output">
+                    <img id="photo"  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="The screen capture will appear in this box."/>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout>
+            <canvas id="c" width="600" height="600" class="canvas"></canvas>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

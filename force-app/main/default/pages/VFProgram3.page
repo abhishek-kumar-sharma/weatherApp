@@ -1,0 +1,25 @@
+<!--
+Create a page that has a text box and a datatable having column(Name, Phone, PostalCode and city) and in
+textbox text is entered and on the basis of it the datablock searches and shows the name column along with other columns.
+controller Name -VFProgram3Controller
+-->
+
+<apex:page controller="VFProgram3Controller" >
+    <apex:pageBlock title="Enter Text to search ">
+       
+        <apex:form >
+            <apex:inputText value="{!keyword}"/>
+            <apex:commandButton value="Search" action="{!searchCustom}" />
+        </apex:form><br/><br/><br/>
+        
+        <apex:pageBlock title="Search Result" rendered="true" > 
+          <apex:pageBlockTable value="{!accList}" var="Data">
+              <apex:column value="{!Data.Name}" />
+              <apex:column value="{!Data.Phone}" />
+              <apex:column value="{!Data.AnnualRevenue}" />
+              <apex:column value="{!Data.BillingCity}" />
+              <apex:column value="{!Data.BillingPostalCode}" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:pageBlock>
+</apex:page>

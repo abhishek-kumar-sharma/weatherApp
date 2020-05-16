@@ -1,0 +1,9 @@
+<!--
+Create a page that displays the detail page same as of
+the Account object along with its related lists
+-->
+<apex:page standardController="Account" lightningStylesheets="true" sidebar="true">
+  <apex:detail inlineEdit="false" relatedList="false"/>
+<!--  <apex:relatedList list="Contacts"/>
+  <apex:relatedList list="Opportunities/>-->
+</apex:page>

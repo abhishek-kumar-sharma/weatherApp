@@ -1,0 +1,33 @@
+<!--
+ - Created by ABHISHEK on 09-09-2019.
+ -->
+
+<apex:page id="lookupPage" controller="AccountLookUpController" sideBar="false">
+    <apex:form id="lookupForm">
+        <b>Account Name :</b>
+        <apex:inputText id="searchedAccountName"/>
+        <apex:pageBlock id="renderPanel">
+            <apex:pageBlockTable value="{!accList}" var="accountInstance" id="pageBlockTableId">
+                <apex:column id="pageBlockTableColumn">
+                    <apex:commandLink value="{!accountInstance.Name}" title="{!accountInstance.Id}" id="pbTableLink"
+                                      onClick="getData('{!accountInstance.Name}','{!accountInstance.Id}');" onComplete="return closeDialog();">
+                    </apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+    <script>
+    var actName;
+    var idTest;
+    function getData(accountName,id) {
+        document.getElementById('{!$Component.lookupForm:searchedAccountName}').value = accountName;
+        actName = accountName;
+        idTest = id;
+    }
+    function closeDialog() {
+        top.close();
+        top.window.opener.pop(actName,idTest);
+        return false;
+    }
+    </script>
+</apex:page>

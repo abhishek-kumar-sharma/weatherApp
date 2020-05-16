@@ -1,0 +1,17 @@
+<apex:page showHeader="false" sidebar="false" lightningStylesheets="true" standardStylesheets="true" >
+    <apex:includeLightning />
+    <script>
+    $Lightning.use("c:TaskBApplication",function(){
+        $Lightning.createComponent("c:TaskBComponent",{},"taskDiv",function(cmp){});
+    });						
+    </script>
+    <apex:slds >
+        <apex:pageBlock >
+            <body>
+                <div id ="taskDiv">
+                    
+                </div>
+            </body>
+        </apex:pageBlock>
+    </apex:slds>
+</apex:page>

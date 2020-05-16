@@ -1,0 +1,17 @@
+<apex:page id="SMSIntegrationVFPage" showHeader="false" sideBar="false" lightningStylesheets="true" standardStylesheets="false">
+    <apex:includeLightning />
+    <script>
+        $Lightning.use("c:SMSIntegrationApp",function()
+        {
+            $Lightning.createComponent("c:SMSIntegrationCmp",{},
+                    "mainDiv",function(cmp)
+                    {
+                    });
+        });
+    </script>
+    <apex:slds >
+        <div id="mainDiv">
+
+        </div>
+    </apex:slds>
+</apex:page>
