@@ -3,6 +3,6 @@
     @Created by : Abhishek Kumar Sharma
     @Created date : 15 May 2020
 -->
-<aura:application>
-
+<aura:application access="global" extends="force:slds" description="historicalWeatherApp">
+    <c:historicalWeatherComponent />
 </aura:application>	
