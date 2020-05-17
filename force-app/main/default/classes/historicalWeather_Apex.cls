@@ -45,4 +45,30 @@ public with sharing class historicalWeather_Apex {
             return null;
         }
     }
+
+    /**
+     * Method to handle the save operation
+     * Created By : Abhishek Kumar Sharma
+     * Created date : 17 May 2020
+     * @param weatherHistory weather history
+     * @param addWeatherHistory list of additional data
+     */
+    @AuraEnabled
+    public static String saveHistoricalWeatherData(ECSV__Weather_History__c weatherHistory , List<ECSV__Additional_Weather_History_Data__c> addWeatherHistory){
+        try {
+            Database.SaveResult saveResult = Database.insert(weatherHistory);
+            if (saveResult.getId() != null) {
+                for(ECSV__Additional_Weather_History_Data__c addWeatherHistoryInstance : addWeatherHistory){
+                    addWeatherHistoryInstance.ECSV__Weather_History__c = saveResult.getId();
+                } 
+                Database.insert(addWeatherHistory);
+                return saveResult.getId();
+            }
+            return null;
+        } catch (Exception exce) {
+            System.debug('Exception occurred while saving the record. \n Message ::'+exce.getMessage()+' \n line Number ::'+exce.getLineNumber()+' \n Cause ::'+exce.getCause());
+            return null;
+        } 
+    }
 }
+ 

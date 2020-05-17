@@ -5,16 +5,29 @@
 -->
 <aura:component access="global" description="historicalWeatherComponent" controller="historicalWeather_Apex">
 
-    <!-- Handler and event section start -->
+    <!-- Handler,event and static resource section start -->
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <!-- Handler and event section end -->
+    <!-- Handler,event and static resource section end -->
 
     <!-- Attribute deceleration section start -->
+    <aura:attribute name="showResultSection" type="Boolean" default="false"
+        description="Attribute to show hide result section" />
+    <aura:attribute name="showToast" type="Boolean" default="false"
+        description="Attribute to show hide Toast section" />
+    <aura:attribute name="toastThemeClass" type="String" default="slds-notify slds-notify_toast slds-theme_success"
+        description="Attribute to hold theme for toast" />
+    <aura:attribute name="toastMessage" type="String" default="Record Saved Successfully"
+        description="Attribute to hold toast message" />
     <aura:attribute name="currentTime" type="String" description="Attribute to hold the current time" />
     <aura:attribute name="city" type="String" description="Attribute to store the user input city" />
     <aura:attribute name="startDate" type="Date" description="Attribute to store the user input start date" />
     <aura:attribute name="endDate" type="Date" description="Attribute to store the user input end date" />
     <aura:attribute name="result" type="String" description="Attribute to store the result from API" />
+    <aura:attribute name="saveButtonVariant" type="String" default="brand"
+        description="Attribute to store the variant for save button" />
+    <aura:attribute name="exportButtonVariant" type="String" default="brand"
+        description="Attribute to store the variant for export to pdf button" />
+    <aura:attribute name="recordId" type="String" />
     <!-- Attribute deceleration section end -->
 
     <!-- Component body start -->
@@ -40,11 +53,40 @@
 
         <!-- page start -->
         <div id="content-container">
+            <!-- Toast section start -->
+            <div aura:id='successToast'>
+                <div class="{!v.showToast ? 'slds-show' : 'slds-hide'}">
+                    <div class="slds-notify_container slds-is-relative">
+                        <div class="{!v.toastThemeClass}" role="status">
+                            <span
+                                class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                                title="Close"></span>
+                            <div class="slds-notify__content">
+                                <h2 class="slds-text-heading_small ">
+                                    {!v.toastMessage}
+                                </h2>
+                            </div>
+                            <div class="slds-notify__close">
+                                <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+                                    <lightning:buttonIcon onclick="{!c.closeToast}" alternativeText="Close"
+                                        iconName="utility:close" variant="bare-inverse" />
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Toast section end -->
+
+            <!-- Spinner Section start -->
             <div aura:id="global-spinner" class="slds-hide">
                 <lightning:spinner alternativeText="Loading ..." size="large" variant="brand" />
             </div>
+            <!-- Spinner section end -->
 
             <div id="user-input-area">
+                <!-- user input area start -->
                 <lightning:layout horizontalAlign="space" multipleRows="true"
                     class="slds-card slds-p-top--small slds-m-top--xx-small slds-m-right--xx-small slds-m-left--x-small">
                     <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3"
@@ -66,106 +108,142 @@
                     </lightning:layoutItem>
                     <lightning:layoutItem class="slds-p-left_xx-large slds-m-top--xx-small" size="12"
                         smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
-                        <lightning:button label="Get Weather History" class="margin-left-50px" variant="brand" onclick="{!c.getWeatherHistory}" />
+                        <lightning:button label="Get Weather History" iconName="action:web_link" iconPosition="left"
+                            class="margin-left-50px" variant="brand" onclick="{!c.getWeatherHistory}" />
                     </lightning:layoutItem>
                 </lightning:layout>
+                <!-- user input area end -->
             </div>
 
-            <div aura:id="result-area" class="slds-p-top--small">
-                <lightning:layout horizontalAlign="space" multipleRows="true"
-                    class="slds-card slds-p-around--small slds-m-right--xx-small slds-m-left--x-small">
-                    <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
-                        <div><strong>Description : </strong></div>
-                    </lightning:layoutItem>
-                    <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
-                        <strong>City Id : </strong> {!v.result.city_id}
-                    </lightning:layoutItem>
-                    <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
-                        <strong>Cod :</strong> {!v.result.cod}
-                    </lightning:layoutItem>
-                    <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
-                        <strong>Calc Time : </strong>{!v.result.calctime}
-                    </lightning:layoutItem>
-                    <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
-                        <strong>Cnt : </strong>{!v.result.cnt}
-                    </lightning:layoutItem>
-                    <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
-                        <strong> Message : </strong>{!v.result.message}
-                    </lightning:layoutItem>
-                </lightning:layout>
+            <!-- API result display section start -->
+            <aura:if isTrue="{!v.showResultSection}">
+                <div aura:id="result-area" class="slds-p-top--small">
+                    <lightning:layout horizontalAlign="space" multipleRows="true"
+                        class="slds-card slds-p-around--small slds-m-right--xx-small slds-m-left--x-small">
+                        <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
+                            <div><strong>Description : </strong></div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
+                            <strong>City Id : </strong> {!v.result.city_id}
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
+                            <strong>Cod :</strong> {!v.result.cod}
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
+                            <strong>Calc Time : </strong>{!v.result.calctime}
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
+                            <strong>Cnt : </strong>{!v.result.cnt}
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="2" mediumDeviceSize="2" largeDeviceSize="2">
+                            <strong> Message : </strong>{!v.result.message}
+                        </lightning:layoutItem>
+                    </lightning:layout>
 
+                    <lightning:layout horizontalAlign="center" multipleRows="true" class="slds-p-top--small">
+                        <lightning:layoutItem size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4">
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4"
+                            class="slds-align_absolute-center">
+                            <lightning:button label="Save" variant="{!v.saveButtonVariant}" iconName="utility:save"
+                                iconPosition="left" onclick="{!c.saveTableData}">
+                            </lightning:button>
+                            <lightning:button label="Export To PDF" variant="{!v.exportButtonVariant}"
+                                iconName="doctype:pdf" iconPosition="left" onclick="{!c.exportTableDataToPDF}">
+                            </lightning:button>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="4" mediumDeviceSize="4" largeDeviceSize="4">
+                        </lightning:layoutItem>
+                    </lightning:layout>
 
-                <lightning:layout horizontalAlign="space" multipleRows="true" class="slds-p-around--small">
-                    <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
-                        <table class="slds-table slds-table_cell-buffer slds-table_bordered" id="resultTable">
-                            <thead>
-                                <tr class="slds-line-height_reset">
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate slds-text-align_center" title="Date">Date</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Clouds [%Cloudiness]">Clouds [%Cloudiness]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Humidity [%]">Humidity [%]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Pressure [hPa]">Pressure [hPa]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Sea Level [hPa]">Sea Level [hPa]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Temp [Fahrenheit]">Temp [Fahrenheit]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Temp min / Temp max [Fahrenheit]">Temp min / Temp max [Fahrenheit]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Wind Speed [miles/hour]">Wind Speed [miles/hour]</div>
-                                    </th>
-                                    <th class="" scope="col">
-                                        <div class="slds-truncate" title="Weather">Weather</div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <aura:iteration items="{!v.result.list_New}" var="itemList">
-                                    <tr class="slds-hint-parent">
-                                        <th data-label="Date" scope="row">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.dt}">{!itemList.dt}</div>
+                    <lightning:layout horizontalAlign="space" multipleRows="true" class="slds-p-around--small">
+                        <lightning:layoutItem size="12" smallDeviceSize="12" mediumDeviceSize="12" largeDeviceSize="12">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered" id="resultTable">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate slds-text-align_center" title="Date">Date</div>
                                         </th>
-                                        <td data-label="Clouds [%Cloudiness]">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.clouds.all}">{!itemList.clouds.all}</div>
-                                        </td>
-                                        <td data-label="Humidity [%]">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.main.humidity}">{!itemList.main.humidity}</div>
-                                        </td>
-                                        <td data-label="Pressure [hPa]">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.main.pressure}">{!itemList.main.pressure}</div> 
-                                        </td>
-                                        <td data-label="Sea Level [hPa]">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.main.sea_level}">{!itemList.main.sea_level}</div>
-                                        </td>
-                                        <td data-label="Temp [Fahrenheit]">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.main.temp}">{!itemList.main.temp}</div>
-                                        </td>
-                                        <td data-label="Temp min / Temp max [Fahrenheit]">
-                                            <div class="slds-truncate slds-text-align_center">{!itemList.main.temp_min} / {!itemList.main.temp_max}</div>
-                                        </td>
-                                        <td data-label="Wind Speed [miles/hour]">
-                                            <div class="slds-truncate slds-text-align_center" title="{!itemList.wind.speed}">{!itemList.wind.speed}</div>
-                                        </td>
-                                        <td data-label="weather">
-                                            <div class="slds-truncate" title="{!itemList.weather[0].description}">{!itemList.weather[0].description}</div>
-                                        </td>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Clouds [%Cloudiness]">Clouds [%Cloudiness]
+                                            </div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Humidity [%]">Humidity [%]</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Pressure [hPa]">Pressure [hPa]</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Sea Level [hPa]">Sea Level [hPa]</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Temp [Fahrenheit]">Temp [Fahrenheit]</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Temp min / Temp max [Fahrenheit]">Temp min
+                                                /
+                                                Temp max [Fahrenheit]</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Wind Speed [miles/hour]">Wind Speed
+                                                [miles/hour]</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Weather">Weather</div>
+                                        </th>
                                     </tr>
-                                </aura:iteration>
-                            </tbody>
-                        </table>
-                    </lightning:layoutItem>
-                </lightning:layout>
-            </div>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.result.list_New}" var="itemList">
+                                        <tr class="slds-hint-parent">
+                                            <th data-label="Date" scope="row">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.dt}">
+                                                    {!itemList.dt}</div>
+                                            </th>
+                                            <td data-label="Clouds [%Cloudiness]">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.clouds.all}">{!itemList.clouds.all}</div>
+                                            </td>
+                                            <td data-label="Humidity [%]">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.main.humidity}">{!itemList.main.humidity}</div>
+                                            </td>
+                                            <td data-label="Pressure [hPa]">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.main.pressure}">{!itemList.main.pressure}</div>
+                                            </td>
+                                            <td data-label="Sea Level [hPa]">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.main.sea_level}">{!itemList.main.sea_level}</div>
+                                            </td>
+                                            <td data-label="Temp [Fahrenheit]">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.main.temp}">{!itemList.main.temp}</div>
+                                            </td>
+                                            <td data-label="Temp min / Temp max [Fahrenheit]">
+                                                <div class="slds-truncate slds-text-align_center">
+                                                    {!itemList.main.temp_min}
+                                                    / {!itemList.main.temp_max}</div>
+                                            </td>
+                                            <td data-label="Wind Speed [miles/hour]">
+                                                <div class="slds-truncate slds-text-align_center"
+                                                    title="{!itemList.wind.speed}">{!itemList.wind.speed}</div>
+                                            </td>
+                                            <td data-label="weather">
+                                                <div class="slds-truncate" title="{!itemList.weather[0].description}">
+                                                    {!itemList.weather[0].description}</div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+            </aura:if>
+            <!-- API result display section end -->
         </div>
         <!-- page end -->
 

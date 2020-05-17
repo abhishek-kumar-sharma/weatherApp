@@ -1,0 +1,164 @@
+<apex:page sidebar="false" showHeader="false" applyHtmlTag="false" renderAs="pdf" label="Historical Weather Data" title="Historical Weather Data"
+    controller="getHistoricalData">
+
+    <head>
+        <style type="text/css">
+            @page {
+                margin-bottom: 9%;
+                margin-right: 7%;
+                margin-left: 5%;
+                size: A6;
+                @top-center {
+                    content: element(header);
+                }
+                @bottom-center {
+                    content: element(footer);
+                }
+            }
+
+            p.small {
+                line-height: 67%;
+            }
+
+            body {
+                font-family: Arial;
+            }
+
+            div.footer {
+                margin-left: 8px;
+                margin-top: 0px;
+                margin-right: 5px;
+                margin-bottom: 2px;
+                position: running(footer);
+                padding: 0.5px;
+                background-color: #183967;
+                color: #ffffff;
+            }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+
+            .pagecount:before {
+                content: counter(pages);
+            }
+
+            .noBordertable {
+                width: 100%;
+                font-size: 10px;
+                border-collapse: collapse;
+            }
+
+            .fillcolor {
+                background-color: #183967;
+                color: white;
+                font-size: 14px;
+            }
+
+            .MainHeader {
+                background-color: #183967;
+                color: white;
+                font-size: 18px;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .subHeading {
+                background-color: #ddd8d3;
+                color: rgb(0, 0, 0);
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding-left: 8px;
+                padding-right: 8px;
+                border: 0.5px solid black;
+                font-family: "Arial Unicode MS";
+                font-size: 8pt;
+            }
+
+            .spanDiv {
+
+                font-weight: bolder;
+                font-family: 'Arial Unicode MS';
+                background-color: #f2efef;
+                color: black;
+                font-size: 11.2px;
+            }
+
+            .disDiv {
+                font-family: Arial Unicode MS;
+                font-size: 10px;
+                margin: 0px;
+                text-align: justify;
+                font-weight: bolder;
+            }
+        </style>
+    </head>
+    <div class="footer">
+        <div>
+            <center>Page
+                <span class="pagenumber" /> of
+                <span class="pagecount" />
+            </center>
+        </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+        <table class="noBordertable">
+            <tr>
+                <th class="MainHeader" colSpan="12">
+                    <span>Historical Weather Data Report</span>
+                </th>
+            </tr>
+        </table>
+    </div>
+
+    <table class="noBordertable" style="margin-top:6px;">
+        <tr>
+            <td width="11.6%" class="subHeading">Date</td>
+            <td width="11.1%" class="subHeading">Clouds [%Cloudiness]</td>
+            <td width="11.1%" class="subHeading">Humidity [%]</td>
+            <td width="11.1%" class="subHeading">Pressure [hPa]</td>
+            <td width="11.1%" class="subHeading">Sea Level [hPa]</td>
+            <td width="11.1%" class="subHeading">Temp [Fahrenheit]</td>
+            <td width="11.1%" class="subHeading">Temp min / Temp max [Fahrenheit]</td>
+            <td width="11.1%" class="subHeading">Wind Speed [miles/hour]</td>
+            <td width="11.1%" class="subHeading">Weather</td>
+
+        </tr>
+        <apex:repeat value="{!addWeatherData}" var="addWeatherDataInst">
+            <tr>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Date__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Clouds__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Humidity__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Pressure__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Sea_Level__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Temp__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Temp_min__c}" /> /
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Temp_max__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Wind_Speed__c}" />
+                </td>
+                <td width="11.1%">
+                    <apex:outputField value="{!addWeatherDataInst.ECSV__Weather__c}" />
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+</apex:page>

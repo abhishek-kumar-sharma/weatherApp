@@ -49,7 +49,7 @@
                 console.log('startDate ===>', c.get('v.startDate'));
                 console.log('endDate ===>', c.get('v.endDate'));
                 // Calling helper method if all inputs are valid
-                h.getWeatherHistory_Helper(c,e,h);
+                h.getWeatherHistory_Helper(c, e, h);
             } else {
                 console.error('Please update the invalid form entries and try again.');
             }
@@ -57,5 +57,46 @@
         } catch (e) {
             console.error('Exception occurred while handling the button click. \n Message ::', e.message);
         }
+    },
+
+    /**
+     * Method to save data from table to salesforce
+     * @param {*} c 
+     * @param {*} e 
+     * @param {*} h 
+     */
+    saveTableData: function (c, e, h) {
+        try {
+            h.saveResult_Helper(c,e,h,false);
+            c.set('v.saveButtonVariant', 'success');
+
+        } catch (e) {
+
+        }
+    },
+
+    /**
+     * Method to handle the export table data to PDF
+     * @param {*} c 
+     * @param {*} e 
+     * @param {*} h 
+     */
+    exportTableDataToPDF: function (c, e, h) {
+        try {
+            c.set('v.exportButtonVariant', 'success');
+            h.saveResult_Helper(c,e,h,true);
+        } catch (e) {
+
+        }
+    },
+
+    /**
+     * Method to close toast
+     * @param {*} c 
+     * @param {*} e 
+     * @param {*} h 
+     */
+    closeToast : function(c,e,h){
+        c.set('v.showToast',false);
     }
 })
