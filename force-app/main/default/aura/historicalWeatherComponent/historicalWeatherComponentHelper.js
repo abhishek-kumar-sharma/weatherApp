@@ -23,9 +23,6 @@
             });
             call_Apex.setCallback(this, function (response) {
                 if(response.getState() === 'SUCCESS' && c.isValid()){
-
-                    c.set('v.result',response.getReturnValue());
-
                     // Getting the data to convert the Epoch time to human format
                     let resultList = response.getReturnValue();
                     console.log(resultList);
@@ -33,6 +30,7 @@
                         dataSet.dt= h.formatDate(dataSet.dt);         
                     }); 
                     console.log('result list >>>'+JSON.stringify(resultList));
+                    c.set('v.result',resultList);
 
                     $A.util.addClass(globalSpinner, 'slds-hide');
                     $A.util.removeClass(globalSpinner, 'slds-show');
