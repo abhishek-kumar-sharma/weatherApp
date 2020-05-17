@@ -14,6 +14,7 @@
     <aura:attribute name="city" type="String" description="Attribute to store the user input city" />
     <aura:attribute name="startDate" type="Date" description="Attribute to store the user input start date" />
     <aura:attribute name="endDate" type="Date" description="Attribute to store the user input end date" />
+    <aura:attribute name="result" type="String" description="Attribute to store the result from API" />
     <!-- Attribute deceleration section end -->
 
     <!-- Component body start -->
@@ -39,24 +40,33 @@
 
         <!-- page start -->
         <div id="content-container">
-            <lightning:layout horizontalAlign="space" multipleRows="true">
-                <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
-                    <lightning:input type="text" name="city" aura:id="field" required="true" variant="label-inline" label="City Name" value="{!v.city}"
-                        placeholder="Enter city name ..." />
-                </lightning:layoutItem>
-                <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
-                    <lightning:input type="date" name="startDate" aura:id="field" required="true" variant="label-inline" label="Start Date" value="{!v.startDate}"
-                        placeholder="Enter start date ..." />
-                </lightning:layoutItem>
-                <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
-                    <lightning:input type="date" name="endDate" aura:id="field" required="true" variant="label-inline" label="End Date" value="{!v.endDate}"
-                        placeholder="Enter end date ..." />
-                </lightning:layoutItem>
-                <lightning:layoutItem class="slds-p-left_xx-large slds-m-top--xx-small" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
-                    <lightning:button label="Get Weather History" onclick="{!c.getWeatherHistory}"/>
-                </lightning:layoutItem>
-            </lightning:layout>
+            <div aura:id="global-spinner" class="slds-hide">
+                <lightning:spinner alternativeText="Loading ..." size="large" variant="brand" />
+            </div>
 
+            <div id="user-input-area">
+                <lightning:layout horizontalAlign="space" multipleRows="true">
+                    <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
+                        <lightning:input type="text" name="city" aura:id="field" required="true" variant="label-inline" label="City Name" value="{!v.city}"
+                            placeholder="Enter city name ..." />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
+                        <lightning:input type="date" name="startDate" aura:id="field" required="true" variant="label-inline" label="Start Date" value="{!v.startDate}"
+                            placeholder="Enter start date ..." />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-horizontal_medium" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
+                        <lightning:input type="date" name="endDate" aura:id="field" required="true" variant="label-inline" label="End Date" value="{!v.endDate}"
+                            placeholder="Enter end date ..." />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-p-left_xx-large slds-m-top--xx-small" size="12" smallDeviceSize="3" mediumDeviceSize="3" largeDeviceSize="3" flexibility="auto">
+                        <lightning:button label="Get Weather History" onclick="{!c.getWeatherHistory}"/>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </div>
+
+            <div id="result-area">
+
+            </div>
         </div>
         <!-- page end -->
     </div>
