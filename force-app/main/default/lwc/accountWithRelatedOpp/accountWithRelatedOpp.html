@@ -1,0 +1,18 @@
+<template>
+    <div id="main-container">
+        <template if:true={showAccount}>
+            <template for:each={accountList} for:item='accountInst'>
+                <div id={accountInst.Id} key={accountInst.Id} class={accountInst.Id} accesskey={accountInst.Id} onclick={showRelatedOpportunity}>{accountInst.Name}</div>
+            </template>
+        </template>
+
+        <template if:true={showOpportunity}>
+            <div>Opportunity List</div>
+            <template for:each={opportunityList} for:item='opr'>
+                <div key={opr.Id}>{opr.Name}</div>
+            </template>
+        </template>
+
+
+    </div>
+</template>
